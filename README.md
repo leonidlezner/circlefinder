@@ -2,4 +2,4 @@
 
 # CircleFinder
 
-This small application helps to build Working Out Loud circles.
+This small application helps to build co-creation circles.

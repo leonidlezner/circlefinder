@@ -17,7 +17,7 @@ class ProfileController extends Controller
     {
         $user = \App\User::withUuid($uuid)->firstOrFail();
         
-        return view('profile.show')->with([
+        return view('profile.profile.show')->with([
             'item' => $user
         ]);
     }
@@ -26,7 +26,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         
-        return view('profile.edit')->with([
+        return view('profile.profile.edit')->with([
             'item' => $user
         ]);
     }

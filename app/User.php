@@ -93,4 +93,9 @@ class User extends Authenticatable
         $role = $this->roles->where('name', $role_name);
         return (count($role) > 0);
     }
+
+    public function newAvatarFileName()
+    {
+        return $this->newUuid() . '.jpg';
+    }
 }

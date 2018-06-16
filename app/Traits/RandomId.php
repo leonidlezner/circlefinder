@@ -5,9 +5,14 @@ use Illuminate\Support\Str;
 
 trait RandomId
 {
+    public function newUuid()
+    {
+        return (string) Str::orderedUuid();
+    }
+
     public function generateUniqueId()
     {
-        $this->uuid = (string) Str::orderedUuid();
+        $this->uuid = $this->newUuid();
         $this->save();
     }
 

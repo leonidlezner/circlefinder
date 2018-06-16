@@ -56,4 +56,11 @@ class UserTest extends TestCase
         
         $this->assertFalse(key_exists('email', $rules2));
     }
+
+    public function test_get_new_avatar_filename()
+    {
+        $user = factory(\App\User::class)->create();
+
+        $this->assertTrue(strlen($user->newAvatarFileName()) > 0);
+    }
 }

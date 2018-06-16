@@ -29,13 +29,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'profile', 'middleware' => 'auth',
                 'as' => 'profile.'], function() {
     
-    /*
-    Route::group(['prefix' => 'roles', 'as' => 'roles.'], function() {
-        Route::post('/{role}/restore', 'RolesController@restore')->name('restore');
-        Route::delete('/{role}/forcedelete', 'RolesController@forceDelete')->name('forcedelete');
-        Route::get('/trash', 'RolesController@trash')->name('trash');
-    });*/
-
     Route::get('/', 'ProfileController@index')->name('index');
     Route::get('/edit', 'ProfileController@edit')->name('edit');
     Route::put('/update', 'ProfileController@update')->name('update');
@@ -44,6 +37,13 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth',
         Route::get('/', 'PasswordController@index')->name('index');
         Route::get('/edit', 'PasswordController@edit')->name('edit');
         Route::put('/update', 'PasswordController@update')->name('update');
+    });
+
+    Route::group(['prefix' => 'avatar', 'as' => 'avatar.'], function() {
+        Route::get('/', 'AvatarController@index')->name('index');
+        Route::get('/edit', 'AvatarController@edit')->name('edit');
+        Route::put('/update', 'AvatarController@update')->name('update');
+        Route::get('/download/{file}', 'AvatarController@download')->name('download');
     });
 
     Route::get('/{uuid}', 'ProfileController@show')->name('show');
