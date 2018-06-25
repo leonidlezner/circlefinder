@@ -97,7 +97,7 @@ class CirclesController extends Controller
         if($item->joinable($user) == false)
         {
             return redirect()->route('circles.show', $item->uuid)->withErrors(
-                sprintf('You cannot join circle %s', (string) $item)
+                sprintf('You cannot join %s', (string) $item)
             );
         }
 
@@ -144,6 +144,26 @@ class CirclesController extends Controller
 
         return redirect()->route('circles.show', $item->uuid)->with([
             'success' => sprintf('%s is not completed!', (string) $item)
+        ]);
+    }
+
+    public function destroy($uuid, Request $request)
+    {
+        $item = \App\Circle::withUuid($uuid)->firstOrFail();
+
+        $this->authorize('delete', $item);
+
+        if($item->deletable() == false)
+        {
+            return redirect()->route('circles.show', $item->uuid)->withErrors(
+                sprintf('You cannot delete %s', (string) $item)
+            );
+        }
+
+        $item->delete();
+
+        return redirect()->route('circles.index')->with([
+            'success' => sprintf('%s is deleted!', (string) $item)
         ]);
     }
 }

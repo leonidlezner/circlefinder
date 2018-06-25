@@ -34,7 +34,7 @@
             
             @foreach($item->memberships as $membership)
             <tr>
-                <td class="align-middle">{{ $membership->user->name }}</td>
+                <td class="align-middle"><a href="{{ route('profile.show', ['uuid' => $membership->user->uuid]) }}">{{ $membership->user->name }}</a></td>
                 <td class="align-middle">{{ $membership->type }}</td>
                 <td class="align-middle">{{ $membership->begin }}</td>
             </tr>
@@ -56,11 +56,11 @@
     @else
         <p>You are not a member of {{ $item }}</p>
         @if($item->joinable($user))
-        {!! Form::open(['route' => ['circles.join', 'uuid' => $item->uuid], 'class' => 'd-inline-block']) !!}
-            {{ Form::submit('Join circle', ['class' => 'btn btn-success']) }}
-        {!! Form::close() !!}
+            {!! Form::open(['route' => ['circles.join', 'uuid' => $item->uuid], 'class' => 'd-inline-block']) !!}
+                {{ Form::submit('Join circle', ['class' => 'btn btn-success']) }}
+            {!! Form::close() !!}
         @else
-        <p>You can not join this circle.</p>
+            <p>You can not join this circle.</p>
         @endif
     @endif
 
@@ -73,6 +73,13 @@
             {!! Form::open(['route' => ['circles.'.($item->completed ? 'uncomplete' : 'complete'), 'uuid' => $item->uuid], 'class' => 'd-inline-block']) !!}
                 {{ Form::submit($item->completed ? 'Uncomplete' : 'Complete', ['class' => 'btn btn-primary confirm']) }}
             {!! Form::close() !!}
+
+            @if($item->deletable())
+            {!! Form::open(['route' => ['circles.destroy', 'uuid' => $item->uuid], 'class' => 'd-inline-block']) !!}
+                {{ Form::hidden('_method', 'DELETE') }}
+                {{ Form::submit('Delete circle', ['class' => 'btn btn-danger confirm']) }}
+            {!! Form::close() !!}
+            @endif
         @endcan
     </div>
 

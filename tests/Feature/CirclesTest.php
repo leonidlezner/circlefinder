@@ -259,4 +259,45 @@ class CirclesTest extends TestCase
             'user_id' => $user2->id
         ]);
     }
+
+    public function test_user_cannot_delete_circle()
+    {
+        $user = $this->fetchUser();
+        $user2 = $this->fetchUser();        
+        $circle = $this->fetchCircle($user);
+
+        $response = $this->actingAs($user2)->delete(route('circles.destroy', ['uuid' => $circle->uuid]));
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors();
+
+        $this->assertDatabaseHas('circles', [
+            'id' => $circle->id
+        ]);
+    }
+
+    public function test_owner_can_delete_circle()
+    {
+        $user = $this->fetchUser();
+        $user2 = $this->fetchUser();
+        $user3 = $this->fetchUser();
+
+        $faker = $this->fetchFaker();
+        
+        $circle = $this->fetchCircle($user);
+
+        $circle->joinWithDefaults($user2);
+
+        $response = $this->actingAs($user)->delete(route('circles.destroy', ['uuid' => $circle->uuid]));
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors();
+
+        $circle->leave($user2);
+
+        $response = $this->actingAs($user)->delete(route('circles.destroy', ['uuid' => $circle->uuid]));
+
+        $response->assertStatus(302);
+        $response->assertSessionHas('success');
+    }
 }

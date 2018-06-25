@@ -81,7 +81,7 @@ class Circle extends Model
         return $this->hasManyThrough('App\User', 'App\Membership', 'circle_id', 'id', 'id', 'user_id');
     }
 
-    public function canDelete()
+    public function deletable()
     {
         if($this->memberships()->count() > 0)
         {

@@ -10,7 +10,7 @@
         {{ Form::date('begin', isset($item) ? null : today(), ['class' => 'form-control']) }}
     </div>
 
-    {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
+    {{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
     
     <a href="{{ route('circles.show', ['uuid' => $item->circle->uuid]) }}" class="btn btn-light">Cancel</a>
 
