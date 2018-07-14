@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card comments" data-circle="{{ $item->uuid }}">
     <h5 class="card-header">Comments</h5>
     
     <div class="card-body">
@@ -6,12 +6,20 @@
             @if(count($messages))
                 <div class="mb-3">
                 @foreach($messages as $message)
-                    <div class="media">
+                    <div class="media message">
                         <span class="avatar mr-2">{!! user_avatar($message->user, 30, false, true) !!}</span>
 
-                        <div class="media-body mb-2">
-                            <h5 class="mt-0">{!! $message->user->link() !!}</h5>
-                            <div>{{ $message->body }}</div>
+                        <div class="media-body mb-2" data-uuid="{{ $message->uuid }}">
+                            <h5 class="mt-0">
+                                {!! $message->user->link() !!}
+                                
+                                <span class="show_to_all fa fa-eye @if(!$message->show_to_all) d-none @endif"></span>
+                                
+                                @can('update', $message)
+                                <a href="#edit" class="edit btn btn-secondary btn-sm"><span class="fa fa-pencil"></span></a>
+                                @endcan
+                            </h5>
+                            <div class="body">{{ $message->body }}</div>
                         </div>
                     </div>
                 @endforeach
