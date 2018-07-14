@@ -13,9 +13,8 @@
                             <h5 class="mt-0">
                                 {!! $message->user->link() !!}
                                 
-                                <span class="show_to_all fa fa-eye @if(!$message->show_to_all) d-none @endif"></span>
-                                
                                 @can('update', $message)
+                                <span class="show_to_all fa fa-eye @if(!$message->show_to_all) d-none @endif"></span>
                                 <a href="#edit" class="edit btn btn-secondary btn-sm"><span class="fa fa-pencil"></span></a>
                                 @endcan
                             </h5>
