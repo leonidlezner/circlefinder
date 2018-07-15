@@ -1,4 +1,4 @@
-<div class="card comments" data-circle="{{ $item->uuid }}">
+<div class="card mt-4 comments" data-circle="{{ $item->uuid }}">
     <h5 class="card-header">Comments</h5>
     
     <div class="card-body">

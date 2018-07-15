@@ -50854,7 +50854,7 @@ $(function () {
     $('.message .edit').click(function (event) {
         var body = $(this).parent().next('.body');
         var show_to_all_element = $(this).parent().find('.show_to_all');
-        var circle_uuid = "";
+        var circle_uuid = '';
         var uuid = $(this).parent().parent().attr('data-uuid');
         var circle_uuid = $('div.comments').attr('data-circle');
 

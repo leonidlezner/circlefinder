@@ -78,7 +78,7 @@ class MessagesTest extends TestCase
         
         $text = $faker->text;
 
-        $response = $this->actingAs($user2)->post(route('circles.messages.update', [
+        $response = $this->actingAs($user2)->put(route('circles.messages.update', [
             'circle_uuid' => $circle->uuid,
             'uuid' => $message->uuid
         ]), [
@@ -88,7 +88,7 @@ class MessagesTest extends TestCase
 
         $response->assertStatus(403);
 
-        $response = $this->actingAs($user)->post(route('circles.messages.update', [
+        $response = $this->actingAs($user)->put(route('circles.messages.update', [
             'circle_uuid' => $circle->uuid,
             'uuid' => $message->uuid
         ]), [
