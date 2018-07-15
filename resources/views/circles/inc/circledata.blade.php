@@ -20,7 +20,8 @@
         @endcan
 
         <ul class="list-group circle-data">
-            <li class="list-group-item"><span class="fa fa-users"></span>Presence: <strong>{{ translate_type($item->type) }}</strong></li>
+            <li class="list-group-item"><span class="fa fa-users"></span>Members: <strong>{{ count($item->users) }} of {{ $item->limit }}</strong></li>
+            <li class="list-group-item"><span class="fa fa-briefcase"></span>Presence: <strong>{{ translate_type($item->type) }}</strong></li>
             <li class="list-group-item"><span class="fa fa-calendar"></span>Begin: <strong>{{ format_date($item->begin) }}</strong></li>
             @if($item->location)
                 <li class="list-group-item"><span class="fa fa-map-marker"></span>Location: <strong>{{ $item->location }}</strong></li>
@@ -31,6 +32,5 @@
             @endif
             <li class="list-group-item"><span class="fa fa-user"></span>Owner: <strong>{!! $item->user->link() !!}</strong></li>
         </ul>
-
     </div>
 </div>
