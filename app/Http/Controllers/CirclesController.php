@@ -15,7 +15,7 @@ class CirclesController extends Controller
     {
         $user = auth()->user();
         $model = \App\Circle::orderBy('id', 'desc');
-        $model = $model->with(['memberships', 'users', 'user']);
+        $model = $model->with(['memberships', 'users', 'user', 'messages']);
         $items = $model->paginate($this->items_per_page);
 
         return view('circles.index')->with([
@@ -53,7 +53,9 @@ class CirclesController extends Controller
 
     public function show($uuid, Request $request)
     {
-        $item = \App\Circle::withUuid($uuid)->firstOrFail();
+        $item = \App\Circle::withUuid($uuid)->with(
+            ['users', 'user', 'memberships', 'messages']
+        )->firstOrFail();
 
         $this->authorize('view', $item);
 

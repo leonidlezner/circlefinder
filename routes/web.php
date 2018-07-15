@@ -56,7 +56,7 @@ Route::group(['prefix' => '/circles', 'as' => 'circles.', 'middleware' => 'auth'
     
     Route::group(['prefix' => '{circle_uuid}/messages', 'as' => 'messages.'], function ($circle_uuid) {
         Route::post('/', 'MessagesController@store')->name('store');
-        Route::post('/{uuid}/update', 'MessagesController@update')->name('update');
+        Route::put('/{uuid}/update', 'MessagesController@update')->name('update');
         Route::delete('/{uuid}/destroy', 'MessagesController@destroy')->name('destroy');
     });
 

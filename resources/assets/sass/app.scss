@@ -85,7 +85,6 @@ form {
 
 span.avatar {
   display: inline-block;
-  margin-right: 5px;
   
   img {
     border-radius: 50%;
@@ -108,5 +107,37 @@ span.avatar {
 .form-control {
   &::placeholder {
     color: #cccccc;
+  }
+}
+
+* {
+  //outline: 1px dashed red;
+}
+
+.circle-data {
+  span.fa {
+    width: 1.7em;
+  }
+}
+
+.message {
+  .media-body {
+    padding: 0.7em 1em;
+    background: #f7f7f7;
+    border-radius: 5px;
+  }
+
+  .avatar {
+    width: 30px;
+  }
+
+  .show-to-all-info {
+    display: none;
+  }
+}
+
+.show-to-all {
+  .show-to-all-info {
+    display: block;
   }
 }

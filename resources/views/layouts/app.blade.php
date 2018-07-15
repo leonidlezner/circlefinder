@@ -10,6 +10,9 @@
 
     <title>@yield('title') | {{ config('app.name', 'Laravel') }}</title>
 
+    <!-- Scripts -->
+    <script src="{{ mix('js/app.js') }}" defer></script>
+
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
@@ -20,6 +23,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'CircleFinder') }} <small>pilot</small>
                 </a>
+                
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -39,7 +43,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <span class="avatar">{!! user_avatar(Auth::user(), 25) !!}</span>{{ Auth::user()->name }} <span class="caret"></span>
+                                    <span class="avatar mr-1">{!! user_avatar(Auth::user(), 25) !!}</span>{{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -75,8 +79,5 @@
             <p>Created by <a href="https://twitter.com/leonidlezner">@@leonidlezner</a> - <a href="https://github.com/leonidlezner/circlefinder">Source at Github</a></p>
         </footer>
     </div>
-
-    <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
 </body>
 </html>

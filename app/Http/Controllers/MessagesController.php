@@ -32,23 +32,28 @@ class MessagesController extends Controller
     public function update($circle_uuid, $uuid, Request $request)
     {
         $message = \App\Message::withUuid($uuid)->firstOrFail();
-
+        
         $circle = $message->circle;
 
         $user = auth()->user();
-
+        
         $this->authorize('update', $message);
-
+        
         $this->validate($request, \App\Message::validationRules());
 
         $message->body = $request->body;
-        $message->show_to_all = $request->show_to_all;
+
+        $message->show_to_all = $request->get('show_to_all', false);
         
         $message->save();
-
-        return redirect()->route('circles.show', $circle->uuid)->with([
-            'success' => sprintf('Comment was updated!'),
-        ]);
+        
+        if ($request->ajax()) {
+            return response()->json(['status' => 'success']);
+        } else {
+            return redirect()->route('circles.show', $circle->uuid)->with([
+                'success' => sprintf('Comment was updated!'),
+            ]);
+        }
     }
 
     public function destroy($circle_uuid, $uuid, Request $request)
