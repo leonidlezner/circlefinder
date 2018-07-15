@@ -60,7 +60,7 @@
                 @if(count($item->circles))
                     <ul>
                     @foreach($item->circles as $circle)
-                        <li><a href="{{ route('circles.show', ['uuid' => $circle->uuid]) }}">{{ $circle }}</a></li>
+                        <li>{!! $circle->link() !!}</li>
                     @endforeach
                     </ul>
                 @else
@@ -72,7 +72,7 @@
                 @if(count($item->memberships))
                     <ul>
                     @foreach($item->memberships as $membership)
-                        <li><a href="{{ route('circles.show', ['uuid' => $membership->circle->uuid]) }}">{{ $membership->circle }}</a></li>
+                        <li>{!! $membership->circle->link() !!}</li>
                     @endforeach
                     </ul>
                 @else

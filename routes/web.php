@@ -104,6 +104,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin',
         Route::resource('languages', 'LanguagesController');
 
         Route::resource('circles', 'CirclesController')->only(['index', 'show']);
+        Route::resource('messages', 'MessagesController')->only(['index', 'show']);
     });
 
 # Admin Login URLs

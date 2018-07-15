@@ -28,20 +28,25 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
+                    @auth('admin')
                     <ul class="navbar-nav mr-auto">
-                        
+                        <li><a class="nav-link" href="{{ route('admin.circles.index') }}">Circles</a></li>
+                        <li><a class="nav-link" href="{{ route('admin.messages.index') }}">Messages</a></li>
+                        <li><a class="nav-link" href="{{ route('admin.users.index') }}">Users</a></li>
+                        <li><a class="nav-link" href="{{ route('admin.roles.index') }}">Roles</a></li>
+                        <li><a class="nav-link" href="{{ route('admin.languages.index') }}">Languages</a></li>
                     </ul>
+                    @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        @guest
+                        @guest('admin')
                             <li><a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login') }}</a></li>
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::guard('admin')->user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">

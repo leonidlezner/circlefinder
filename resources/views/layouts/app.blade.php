@@ -20,7 +20,11 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
+                @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
+                @else
+                <a class="navbar-brand" href="{{ route('circles.index') }}">
+                @endguest
                     {{ config('app.name', 'CircleFinder') }} <small>pilot</small>
                 </a>
                 
