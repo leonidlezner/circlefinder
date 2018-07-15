@@ -273,9 +273,12 @@ class Circle extends Model
 
     public function visibleMessages($user)
     {
-        $messages = \App\Message::where([
-            'circle_id' => $this->id
-        ])->with('user')->get();
+        $messages = $this->messages()->with('user')->get();
+
+        // Moderator and circle owner can see all messages
+        if ($user->moderator() || $this->ownedBy($user)) {
+            return $messages;
+        }
 
         $messages = $messages->filter(function ($m) use ($user) {
             return $m->visibleBy($user);

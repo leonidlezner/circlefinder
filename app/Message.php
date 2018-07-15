@@ -65,7 +65,7 @@ class Message extends Model
             return true;
         }
 
-        if (in_array($user->id, $this->recipients) || $this->circle->ownedBy($user)) {
+        if (in_array($user->id, $this->recipients)) {
             return true;
         } else {
             return false;
