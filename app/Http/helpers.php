@@ -131,11 +131,13 @@ if (!function_exists('user_picture')) {
         }
 
         return sprintf(
-            '%s<img src="%s" srcset="%s 2x" alt="%s" />%s',
+            '%s<img src="%s" srcset="%s 2x" alt="%s" width="%d" height="%d" />%s',
             $pre,
             $image_url,
             $retina_image_url,
             htmlspecialchars($user->name),
+            $size,
+            $size,
             $post
         );
     }
