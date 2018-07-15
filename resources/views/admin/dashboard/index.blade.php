@@ -3,5 +3,10 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<p>Not content yet</p>
+
+<p>Users: {{ \App\User::count() }}</p>
+<p>Circles: {{ \App\Circle::count() }}</p>
+<p>Memberships: {{ \App\Membership::count() }}</p>
+<p>Comments: {{ \App\Message::count() }}</p>
+
 @endsection

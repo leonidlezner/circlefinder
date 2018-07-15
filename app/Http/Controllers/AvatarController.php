@@ -71,7 +71,9 @@ class AvatarController extends Controller
             return $image->make(Storage::get('avatars/'.$user->avatar))->fit($w, $h);
         });
 
-        return Response::make($img, 200, array('Content-Type' => 'image/jpg'));
+        return Response::make($img, 200, array(
+            'Content-Type' => 'image/jpg'
+        ));
     }
 
     public function download($uuid)

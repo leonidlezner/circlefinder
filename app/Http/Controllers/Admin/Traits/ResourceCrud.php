@@ -17,7 +17,7 @@ trait ResourceCrud
     protected $viewEdit = '';
     protected $validationRules = [];
     protected $validationRuleIdSuffix = [];
-    protected $items_per_page = 10;
+    protected $items_per_page = 20;
     protected $listWith = null;
 
     public function setupCrud()

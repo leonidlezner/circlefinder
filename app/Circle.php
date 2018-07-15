@@ -232,7 +232,7 @@ class Circle extends Model
 
     public function link($title = null, $class = null)
     {
-        $link_title = $title ? $title : (string) $this;
+        $link_title = $title ? $title : good_title($this);
 
         if ($class) {
             $class = sprintf(' class="%s"', htmlspecialchars($class));
