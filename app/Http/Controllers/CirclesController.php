@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 
 class CirclesController extends Controller
 {
+    private $items_per_page = 0;
+
     public function __construct()
     {
-        $this->items_per_page = config('circles.listing.items_per_page');
+        $this->items_per_page = config('circle.listing.items_per_page');
     }
 
     public function index()
