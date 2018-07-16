@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class CirclesController extends Controller
 {
-    protected $items_per_page = 4;
+    protected $items_per_page = 10;
 
     public function index()
     {

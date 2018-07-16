@@ -22,7 +22,10 @@
         
         @foreach($items as $item)
         <tr>
-            <td class="align-middle">{!! $item->link('Circle '.$item->id) !!}</a></td>
+            <td class="align-middle">
+                {!! $item->link('Circle '.$item->id) !!}
+                <small class="d-block">{{ $item->location }}</small>
+            </td>
             <td class="align-middle">{{ format_date($item->begin) }}</td>
             <td class="align-middle">{{ circle_state($item) }}</td>
             <td class="align-middle">{{ translate_type($item->type) }}</td>
