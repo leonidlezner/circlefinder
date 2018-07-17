@@ -93,7 +93,9 @@ class CirclesController extends Controller
 
         $this->authorize('update', $item);
 
-        $this->validate($request, \App\Circle::validationRules());
+        $rules = \App\Circle::validationRules();
+        $rules['limit'] = $item->getDynamicLimitValidationRule();
+        $this->validate($request, $rules);
 
         $item->updateAndModify($request);
 

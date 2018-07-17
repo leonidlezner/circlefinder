@@ -32,6 +32,7 @@ class Circle extends Model
             'type' => 'required|in:' . implode(',', config('circle.defaults.types')),
             'begin' => 'required|date',
             'languages' => 'required|exists:languages,code',
+            'limit' => sprintf('required|numeric|min:%d|max:%d', config('circle.limit.min'), config('circle.limit.max'))
         ];
 
         if ($except) {
@@ -39,6 +40,14 @@ class Circle extends Model
         }
 
         return $rules;
+    }
+
+    public function getDynamicLimitValidationRule()
+    {
+        // The minimum of members is the current number of members or the lower limit if less
+        $min = max([config('circle.limit.min'), $this->memberships()->count()]);
+
+        return sprintf('required|numeric|min:%d|max:%d', $min, config('circle.limit.max'));
     }
 
     public function __toString()
@@ -205,8 +214,6 @@ class Circle extends Model
 
     public static function createAndModify($user, $request)
     {
-        $request->merge(['limit' => config('circle.defaults.limit')]);
-
         $item = $user->circles()->create($request->all());
 
         if ($request->languages) {
