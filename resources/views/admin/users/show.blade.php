@@ -11,6 +11,15 @@
     <p>UTC Time offset: {{ $item->time_offset }}</p>
     <p>UUID: <a href="{{ route('profile.show', ['uuid' => $item->uuid]) }}">{{  $item->uuid }}</a></p>
 
+    @if(count($item->profiles()))
+    <h3>Social profiles</h3>
+    <ul>
+        @foreach($item->profiles() as $profile => $link)
+        <li><a href="{{ $link }}">{{ $link }}</a></li>
+        @endforeach
+    </ul>
+    @endif
+                        
     @if(count($item->roles))
         <h2>Roles</h2>
 

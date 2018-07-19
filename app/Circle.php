@@ -2,6 +2,7 @@
 
 namespace App;
 
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use \App\Traits\RandomId;
 use \App\Traits\NeedsValidation;
@@ -10,6 +11,7 @@ class Circle extends Model
 {
     use RandomId;
     use NeedsValidation;
+    use Filterable;
 
     protected $dates = ['begin'];
 
@@ -24,6 +26,7 @@ class Circle extends Model
 
     protected $casts = [
         'completed' => 'boolean',
+        'full' => 'boolean',
     ];
 
     public static function validationRules($except = null)
@@ -61,6 +64,14 @@ class Circle extends Model
 
         static::created(function ($circle) {
             $circle->generateUniqueId();
+        });
+
+        static::saving(function ($circle) {
+            if ($circle->memberships()->count() >= $circle->limit) {
+                $circle->full = true;
+            } else {
+                $circle->full = false;
+            }
         });
 
         static::deleting(function ($circle) {
@@ -119,24 +130,13 @@ class Circle extends Model
         }
     }
 
-    public function full()
-    {
-        $count = count($this->memberships) ? count($this->memberships) : $this->memberships()->count();
-
-        if ($count >= $this->limit) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function joinable($user = null)
     {
         if ($user && $this->joined($user)) {
             return false;
         }
 
-        return !$this->full() && !$this->completed;
+        return !$this->full && !$this->completed;
     }
 
     public function joined($user)
@@ -170,6 +170,9 @@ class Circle extends Model
 
         if ($this->memberships()->count() >= $this->limit) {
             $this->complete();
+            
+            $this->full = true;
+            $this->save();
         }
 
         return $membership;
@@ -198,6 +201,19 @@ class Circle extends Model
     public function ownedBy($user)
     {
         return $this->user->id == $user->id;
+    }
+
+    public function updateIsFullField()
+    {
+        $memberships_count = $this->memberships()->count();
+
+        if ($memberships_count < $this->limit) {
+            $this->full = false;
+        } else {
+            $this->full = true;
+        }
+
+        $this->save();
     }
 
     public function complete()
@@ -292,5 +308,10 @@ class Circle extends Model
         });
 
         return $messages;
+    }
+
+    public function modelFilter()
+    {
+        return $this->provideFilter(\App\ModelFilters\CircleFilter::class);
     }
 }

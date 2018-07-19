@@ -36,8 +36,8 @@
                         </div>
 
                         @if(count($profiles))
+                        <h5>Social profiles</h5>
                         <ul class="profiles">
-                            <h5>Social profiles</h5>
                             @foreach($profiles as $profile => $link)
                             <li><a href="{{ $link }}"><i class="fa fa-{{ $profile }}-square"></i></a></li>
                             @endforeach

@@ -53,6 +53,10 @@ class Membership extends Model
             $membership->languages()->detach();
             $membership->timeSlot->delete();
         });
+
+        static::deleted(function ($membership) {
+            $membership->circle->updateIsFullField();
+        });
     }
 
     public function languages()

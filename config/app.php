@@ -167,6 +167,8 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
 
         Jackiedo\Timezonelist\TimezonelistServiceProvider::class,
+
+        EloquentFilter\ServiceProvider::class,
     ],
 
     /*

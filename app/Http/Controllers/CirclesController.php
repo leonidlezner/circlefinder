@@ -13,12 +13,13 @@ class CirclesController extends Controller
         $this->items_per_page = config('circle.listing.items_per_page');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
         $model = \App\Circle::orderBy('id', 'desc');
         $model = $model->with(['memberships', 'users', 'user', 'messages']);
-        $items = $model->paginate($this->items_per_page);
+        $model = $model->filter($request->all());
+        $items = $model->paginateFilter($this->items_per_page);
 
         return view('circles.index')->with([
             'items' => $items,

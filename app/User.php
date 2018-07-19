@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     private $profiles = [
         'twitter' => 'https://twitter.com/',
-        'facebook' => 'https://facebook.com/',
+        'facebook' => 'https://www.facebook.com/',
         'linkedin' => 'https://www.linkedin.com/in/',
         'xing' => 'https://www.xing.com/profile/',
     ];

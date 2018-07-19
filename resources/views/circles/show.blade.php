@@ -9,7 +9,7 @@
     @if($item->completed)
         <div class="alert alert-warning">Circle is completed</div>
     @else
-        @if($item->full())
+        @if($item->full)
             <div class="alert alert-warning">Circle is full</div>
         @endif
     @endif

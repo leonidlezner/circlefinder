@@ -67,7 +67,7 @@ if (!function_exists('circle_state')) {
             return _('Completed');
         }
 
-        if ($circle->full()) {
+        if ($circle->full) {
             return _('Full');
         }
 
