@@ -3,12 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use \App\Traits\NeedsValidation;
 
 class TimeSlot extends Model
 {
-    use NeedsValidation;
-
     private $current_user = null;
     private $time_offset = 0;
 

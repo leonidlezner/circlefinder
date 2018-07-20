@@ -50,11 +50,38 @@ if (!function_exists('format_date')) {
 if (!function_exists('list_of_types')) {
     function list_of_types()
     {
-        $fullList = [];
+        $fullList = ['' => ''];
 
         foreach (config('circle.defaults.types') as $type) {
             $fullList[$type] = translate_type($type);
         }
+
+        return $fullList;
+    }
+}
+
+if (!function_exists('list_of_languages')) {
+    function list_of_languages()
+    {
+        $fullList = ['' => ''];
+
+        foreach (\App\Language::all() as $language) {
+            $fullList[$language->code] = $language->title;
+        }
+
+        return $fullList;
+    }
+}
+
+if (!function_exists('list_of_status')) {
+    function list_of_status()
+    {
+        $fullList = [
+            '' => '',
+            'open' => _('Open'),
+            'full' => _('Full'),
+            'completed' => _('Completed'),
+        ];
 
         return $fullList;
     }

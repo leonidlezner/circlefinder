@@ -19,7 +19,7 @@
 <body>
     <div id="app">
         <div class="header">
-            <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-laravel">
+            <nav class="navbar navbar-expand-md navbar-laravel">
                 <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
                     {{ config('app.name', 'Laravel') }} Admin
                 </a>

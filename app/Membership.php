@@ -3,12 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use \App\Traits\NeedsValidation;
 
 class Membership extends Model
 {
-    use NeedsValidation;
-    
     protected $dates = ['begin'];
 
     protected $fillable = [
@@ -55,7 +52,9 @@ class Membership extends Model
         });
 
         static::deleted(function ($membership) {
-            $membership->circle->updateIsFullField();
+            if (is_null($membership->circle) == false) {
+                $membership->circle->updateIsFullField();
+            }
         });
     }
 

@@ -10,6 +10,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+@import '~bootstrap-select/sass/bootstrap-select';
+@import '~bootstrap-select/sass/variables';
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -139,5 +142,11 @@ span.avatar {
 .show-to-all {
   .show-to-all-info {
     display: block;
+  }
+}
+
+.circle-filter {
+  input.submit {
+    display: none;
   }
 }

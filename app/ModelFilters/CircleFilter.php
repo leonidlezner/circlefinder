@@ -18,12 +18,12 @@ class CircleFilter extends ModelFilter
 
     public function type($type)
     {
-        return $this->whereIn('type', $type);
+        return $this->where('type', $type);
     }
 
     public function language($language)
     {
-        return $this->related('languages', 'code', 'in', $language);
+        return $this->related('languages', 'code', '=', $language);
     }
 
     public function status($status)

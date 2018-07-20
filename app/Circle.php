@@ -5,12 +5,10 @@ namespace App;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use \App\Traits\RandomId;
-use \App\Traits\NeedsValidation;
 
 class Circle extends Model
 {
     use RandomId;
-    use NeedsValidation;
     use Filterable;
 
     protected $dates = ['begin'];
@@ -171,8 +169,7 @@ class Circle extends Model
         if ($this->memberships()->count() >= $this->limit) {
             $this->complete();
             
-            $this->full = true;
-            $this->save();
+            $this->updateIsFullField();
         }
 
         return $membership;
@@ -259,6 +256,8 @@ class Circle extends Model
 
         if ($class) {
             $class = sprintf(' class="%s"', htmlspecialchars($class));
+        } else {
+            $class = '';
         }
 
         $link = sprintf(

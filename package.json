@@ -20,7 +20,10 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "ajv": "^6.5.2",
+        "bootstrap-select": "^1.13.1",
         "font-awesome": "^4.7.0",
+        "npm": "^6.2.0",
         "sweetalert2": "^7.25.0"
     }
 }
