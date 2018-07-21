@@ -34,7 +34,7 @@
             </tr>
             
             @foreach($items as $item)
-            <tr class="item-{{ $item->id }} @if($item->joined($user)) font-weight-bold @endif">
+            <tr class="@if($item->joined($user)) font-weight-bold @endif" data-uuid="{{ $item->uuid }}">
                 <td class="align-middle">{!! $item->link($item->id) !!}</td>
                 <td class="align-middle">{!! $item->link($item->title) !!} <div><small>{{ $item->location }}</small></div></td>
                 <td class="align-middle">{{ format_date($item->begin) }}</td>

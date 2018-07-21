@@ -48,9 +48,9 @@ if (!function_exists('format_date')) {
 }
 
 if (!function_exists('list_of_types')) {
-    function list_of_types()
+    function list_of_types($first = '')
     {
-        $fullList = ['' => ''];
+        $fullList = ['' => $first];
 
         foreach (config('circle.defaults.types') as $type) {
             $fullList[$type] = translate_type($type);
@@ -61,9 +61,9 @@ if (!function_exists('list_of_types')) {
 }
 
 if (!function_exists('list_of_languages')) {
-    function list_of_languages()
+    function list_of_languages($first = '')
     {
-        $fullList = ['' => ''];
+        $fullList = ['' => $first];
 
         foreach (\App\Language::all() as $language) {
             $fullList[$language->code] = $language->title;
@@ -74,10 +74,10 @@ if (!function_exists('list_of_languages')) {
 }
 
 if (!function_exists('list_of_status')) {
-    function list_of_status()
+    function list_of_status($first = '')
     {
         $fullList = [
-            '' => '',
+            '' => $first,
             'open' => _('Open'),
             'full' => _('Full'),
             'completed' => _('Completed'),

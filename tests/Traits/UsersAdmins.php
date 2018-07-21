@@ -57,16 +57,18 @@ trait UsersAdmins
         }
     }
 
-    private function fetchCircle($owner)
+    private function fetchCircle($owner, $data = null)
     {
         $faker = $this->fetchFaker();
 
-        $data = [
-            'type' => $faker->randomElement(config('circle.defaults.types')),
-            'title' => $faker->catchPhrase,
-            'limit' => config('circle.defaults.limit'),
-            'begin' => today(),
-        ];
+        if (is_null($data)) {
+            $data = [
+                'type' => $faker->randomElement(config('circle.defaults.types')),
+                'title' => $faker->catchPhrase,
+                'limit' => config('circle.defaults.limit'),
+                'begin' => today(),
+            ];
+        }
 
         return $owner->circles()->create($data);
     }
