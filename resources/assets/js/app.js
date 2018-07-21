@@ -7,7 +7,7 @@
 
 require('./bootstrap');
 const Swal = require('sweetalert2');
-
+require('bootstrap-select');
 window.Vue = require('vue');
 
 /**
@@ -123,6 +123,10 @@ function setup_edit_dialog() {
 }
 
 $(function() {
+    $('.selectpicker').selectpicker().change(function() {
+        $('.circle-filter form').submit();
+    });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

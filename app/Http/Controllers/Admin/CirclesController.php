@@ -14,7 +14,7 @@ class CirclesController extends Controller
         $model = \App\Circle::orderBy('id', 'desc');
         $model = $model->with(['memberships', 'users', 'user']);
         $items = $model->paginate($this->items_per_page);
-
+        
         return view('admin.circles.index')->with([
             'items' => $items,
         ]);

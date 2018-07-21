@@ -11,7 +11,7 @@ class MessagesController extends Controller
 
     public function index()
     {
-        $model = \App\Message::with(['user', 'circle']);
+        $model = \App\Message::orderBy('id', 'desc')->with(['user', 'circle']);
         $items = $model->paginate($this->items_per_page);
 
         return view('admin.messages.index')->with([

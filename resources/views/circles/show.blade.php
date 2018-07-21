@@ -9,27 +9,29 @@
     @if($item->completed)
         <div class="alert alert-warning">Circle is completed</div>
     @else
-        @if($item->full())
+        @if($item->full)
             <div class="alert alert-warning">Circle is full</div>
         @endif
     @endif
 
-    <div class="mt-4">
-        @if($item->joined($user))
+    @if($item->joined($user))
+        <div class="mt-4">
             <a href="{{ route('circles.membership.edit', ['uuid' => $item->uuid]) }}" class="btn btn-secondary">Edit my membership</a>
 
             {!! Form::open(['route' => ['circles.leave', 'uuid' => $item->uuid], 'class' => 'd-inline-block']) !!}
                 {{ Form::submit('Leave circle', ['class' => 'btn btn-danger confirm']) }}
             {!! Form::close() !!}
-        @else
-            @if($item->joinable($user))
+        </div>
+    @else
+        @if($item->joinable($user))
+            <div class="mt-4">
                 {!! Form::open(['route' => ['circles.join', 'uuid' => $item->uuid], 'class' => 'd-inline-block']) !!}
                     {{ Form::submit('Join circle', ['class' => 'btn btn-success']) }}
                 {!! Form::close() !!}
-            @endif
+            </div>
         @endif
-    </div>
-    
+    @endif
+
     <div class="row">
         <div class="col-12 col-lg-7">
             @include('circles.inc.circledata')

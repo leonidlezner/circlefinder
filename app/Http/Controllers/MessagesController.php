@@ -16,7 +16,7 @@ class MessagesController extends Controller
 
         $this->validate($request, \App\Message::validationRules());
 
-        $message = $circle->storeMessage($user, $request->body, $request->get('show_to_all', false));
+        $message = $circle->storeMessage($user, $request->body, $request->input('show_to_all', false));
 
         if ($message) {
             return redirect()->route('circles.show', $circle->uuid)->with([
@@ -43,7 +43,7 @@ class MessagesController extends Controller
 
         $message->body = $request->body;
 
-        $message->show_to_all = $request->get('show_to_all', false);
+        $message->show_to_all = $request->input('show_to_all', false);
         
         $message->save();
         

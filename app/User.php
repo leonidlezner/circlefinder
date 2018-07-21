@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use \App\Traits\NeedsValidation;
 use \App\Traits\RandomId;
 use Carbon\Carbon;
 
@@ -14,7 +13,6 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
     use RandomId;
-    use NeedsValidation;
 
     protected $dates = ['deleted_at'];
 
@@ -49,7 +47,7 @@ class User extends Authenticatable
 
     private $profiles = [
         'twitter' => 'https://twitter.com/',
-        'facebook' => 'https://facebook.com/',
+        'facebook' => 'https://www.facebook.com/',
         'linkedin' => 'https://www.linkedin.com/in/',
         'xing' => 'https://www.xing.com/profile/',
     ];

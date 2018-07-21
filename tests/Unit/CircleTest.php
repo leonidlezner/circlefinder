@@ -334,4 +334,41 @@ class CircleTest extends TestCase
         $link = sprintf('<a href="%s" class="demo">%s</a>', route('circles.show', ['uuid' => $circle->uuid]), 'Test');
         $this->assertEquals($link, $circle->link('Test', 'demo'));
     }
+
+    public function testFullFieldGetsUpdated()
+    {
+        $user = $this->fetchUser();
+        $user1 = $this->fetchUser();
+        $user2 = $this->fetchUser();
+        $user3 = $this->fetchUser();
+
+        $faker = $this->fetchFaker();
+        $circle = $this->fetchCircle($user);
+
+        $circle->limit = 3;
+        $circle->save();
+
+        $circle = $circle->refresh();
+
+        $this->assertFalse($circle->full);
+
+        $circle->joinWithDefaults($user1);
+        $circle->joinWithDefaults($user2);
+        $circle->joinWithDefaults($user3);
+        
+        $this->assertTrue($circle->full);
+
+        $user2->delete();
+
+        $circle = $circle->refresh();
+
+        $this->assertFalse($circle->full);
+
+        $circle->limit = 2;
+        $circle->save();
+
+        $circle = $circle->refresh();
+
+        $this->assertTrue($circle->full);
+    }
 }

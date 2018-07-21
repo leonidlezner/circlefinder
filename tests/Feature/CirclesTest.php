@@ -97,7 +97,8 @@ class CirclesTest extends TestCase
                 '0' => \App\Language::find(1)->code,
                 '1' => \App\Language::find(2)->code,
                 '2' => \App\Language::find(3)->code
-            ]
+            ],
+            'limit' => 7,
         ]);
 
         $response->assertStatus(302);
@@ -108,6 +109,7 @@ class CirclesTest extends TestCase
         $this->assertTrue($circle->joined($user));
 
         $this->assertEquals(3, count($circle->languages));
+        $this->assertEquals(7, $circle->limit);
     }
 
     public function testModeratorDoesNotAutojoinCircle()
@@ -124,7 +126,8 @@ class CirclesTest extends TestCase
             'begin' => today(),
             'languages' => [
                 '0' => \App\Language::find(1)->code
-            ]
+            ],
+            'limit' => 5
         ]);
 
         $response->assertStatus(302);
@@ -183,7 +186,8 @@ class CirclesTest extends TestCase
                 '0' => \App\Language::find(1)->code,
                 '1' => \App\Language::find(2)->code,
                 '2' => \App\Language::find(3)->code
-            ]
+            ],
+            'limit' => 5,
         ]);
 
         $response->assertStatus(302);
@@ -198,7 +202,8 @@ class CirclesTest extends TestCase
             'begin' => today(),
             'languages' => [
                 '0' => \App\Language::find(1)->code
-            ]
+            ],
+            'limit' => 9,
         ]);
 
         $response->assertStatus(302);
@@ -207,6 +212,7 @@ class CirclesTest extends TestCase
         $circle = $circle->refresh();
 
         $this->assertEquals(1, count($circle->languages));
+        $this->assertEquals(9, $circle->limit);
     }
 
     public function testOwnerCanCompleteCircle()

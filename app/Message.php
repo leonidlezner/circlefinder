@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use \App\Traits\NeedsValidation;
 use \App\Traits\RandomId;
 use Carbon\Carbon;
 

@@ -4,14 +4,25 @@
 
 @section('content')
 
-    <h1>@yield('title')</h1>
-
-    <a href="{{ route('circles.create') }}" class="btn btn-success mb-4">New circle</a>
+    <div class="row mt-2 mb-2">
+        <div class="col-12 col-lg-4">
+            <h1>@yield('title')</h1>
+        </div>
+        <div class="col-12 col-lg-8 text-lg-right">
+            <a href="{{ route('circles.create') }}" class="btn btn-success mb-4">Start a new circle!</a>
+        </div>
+    </div>
         
+    <div class="row">
+        <div class="col-12 col-lg-4">
+            @include('inc.pagination')
+        </div>
+        <div class="col-12 col-lg-8">
+            @include('circles.inc.filter')
+        </div>
+    </div>
+
     @if(count($items) > 0)
-
-        @include('inc.pagination')
-
         <table class="table table-striped table-bordered">
             <tr>
                 <th>Circle</th>
@@ -23,7 +34,7 @@
             </tr>
             
             @foreach($items as $item)
-            <tr class="item-{{ $item->id }} @if($item->joined($user)) font-weight-bold @endif">
+            <tr class="@if($item->joined($user)) font-weight-bold @endif" data-uuid="{{ $item->uuid }}">
                 <td class="align-middle">{!! $item->link($item->id) !!}</td>
                 <td class="align-middle">{!! $item->link($item->title) !!} <div><small>{{ $item->location }}</small></div></td>
                 <td class="align-middle">{{ format_date($item->begin) }}</td>

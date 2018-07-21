@@ -6,17 +6,20 @@ use Illuminate\Http\Request;
 
 class CirclesController extends Controller
 {
+    private $items_per_page = 0;
+
     public function __construct()
     {
-        $this->items_per_page = config('circles.listing.items_per_page');
+        $this->items_per_page = config('circle.listing.items_per_page');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
         $model = \App\Circle::orderBy('id', 'desc');
         $model = $model->with(['memberships', 'users', 'user', 'messages']);
-        $items = $model->paginate($this->items_per_page);
+        $model = $model->filter($request->all());
+        $items = $model->paginateFilter($this->items_per_page);
 
         return view('circles.index')->with([
             'items' => $items,
@@ -91,7 +94,9 @@ class CirclesController extends Controller
 
         $this->authorize('update', $item);
 
-        $this->validate($request, \App\Circle::validationRules());
+        $rules = \App\Circle::validationRules();
+        $rules['limit'] = $item->getDynamicLimitValidationRule();
+        $this->validate($request, $rules);
 
         $item->updateAndModify($request);
 
