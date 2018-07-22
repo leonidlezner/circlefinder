@@ -17,7 +17,7 @@ class CirclesController extends Controller
     {
         $user = auth()->user();
         $model = \App\Circle::orderBy('id', 'desc');
-        $model = $model->with(['memberships', 'users', 'user', 'messages']);
+        $model = $model->with(['memberships', 'users', 'user', 'messages', 'languages']);
         $model = $model->filter($request->all());
         $items = $model->paginateFilter($this->items_per_page);
 
@@ -57,20 +57,28 @@ class CirclesController extends Controller
     public function show($uuid, Request $request)
     {
         $item = \App\Circle::withUuid($uuid)->with(
-            ['users', 'user', 'memberships', 'messages']
+            [
+                'user',
+                'memberships.languages',
+                'memberships.user',
+                'memberships.timeSlot'
+            ]
         )->firstOrFail();
 
         $this->authorize('view', $item);
 
         $user = auth()->user();
 
-        $timeTable = \App\TimeTable::forCircle($item, $user);
+        $memberships = $item->memberships;
+
+        $timeTable = \App\TimeTable::forCircle($item, $user, $memberships);
 
         $messages = $item->visibleMessages($user);
 
         return view('circles.show')->with([
             'item' => $item,
             'user' => $user,
+            'memberships' => $memberships,
             'membership' => $item->membershipOf($user),
             'timeTable' => $timeTable,
             'messages' => $messages

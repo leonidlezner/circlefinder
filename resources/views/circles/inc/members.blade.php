@@ -2,7 +2,7 @@
     <h5 class="card-header">Members</h5>
 
     <div class="card-body">
-        @if(count($item->memberships))        
+        @if(count($memberships))        
             <table class="table table-striped table-bordered">
                 <tr>
                     <th>&nbsp;</th>
@@ -12,7 +12,7 @@
                     <th>Language</th>
                 </tr>
                 
-                @foreach($item->memberships as $memb)
+                @foreach($memberships as $memb)
                 <tr>
                     <td class="align-middle text-center">                  
                         <span class="avatar">{!! user_avatar($memb->user, 40, false, true) !!}</span>
@@ -35,7 +35,7 @@
                 </tr>
                 @endforeach
 
-                @for($i = 0; $i < $item->limit - count($item->memberships); $i++)
+                @for($i = 0; $i < $item->limit - count($memberships); $i++)
                     <tr>
                         <td class="align-middle">&nbsp;</td>
                         <td class="align-middle">&nbsp;</td>

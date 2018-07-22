@@ -56,10 +56,10 @@
                 @endif
 
                 <h5 class="card-title">Owned circles</h5>
-                
-                @if(count($item->circles))
+
+                @if(count($circles) > 0)
                     <ul>
-                    @foreach($item->circles as $circle)
+                    @foreach($circles as $circle)
                         <li>{!! $circle->link() !!}</li>
                     @endforeach
                     </ul>
@@ -69,9 +69,9 @@
 
                 <h5 class="card-title">Member of circles</h5>
                 
-                @if(count($item->memberships))
+                @if(count($memberships) > 0)
                     <ul>
-                    @foreach($item->memberships as $membership)
+                    @foreach($memberships as $membership)
                         <li>{!! $membership->circle->link() !!}</li>
                     @endforeach
                     </ul>

@@ -78,11 +78,13 @@ class TimeTable
         return $timeTable;
     }
 
-    public static function forCircle($circle, $current_user)
+    public static function forCircle($circle, $current_user, $memberships = null)
     {
         $timeTable = new \App\TimeTable;
 
-        $memberships = $circle->memberships;
+        if (is_null($memberships)) {
+            $memberships = $circle->memberships()->with('timeSlot')->get();
+        }
 
         if (count($memberships) < 1) {
             return null;

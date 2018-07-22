@@ -140,11 +140,7 @@ class Circle extends Model
 
     public function joined($user)
     {
-        if (count($this->users) < 1) {
-            $this->load('users');
-        }
-
-        if ($this->users->contains($user)) {
+        if ($this->users()->find($user->id)) {
             return true;
         } else {
             return false;
