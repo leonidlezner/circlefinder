@@ -7,10 +7,10 @@
     <h1>{{ good_title($item) }}</h1>
 
     @if($item->completed)
-        <div class="alert alert-warning">Circle is completed</div>
+        <div class="alert alert-warning">Circle is marked as completed. No new users can join.</div>
     @else
         @if($item->full)
-            <div class="alert alert-warning">Circle is full</div>
+            <div class="alert alert-warning">Circle is full, it has reached the limit.</div>
         @endif
     @endif
 

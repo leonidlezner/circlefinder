@@ -14,6 +14,10 @@ class UserJoinedCircle
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $user;
+    public $circle;
+    public $membership;
+
     /**
      * Create a new event instance.
      *
@@ -21,16 +25,8 @@ class UserJoinedCircle
      */
     public function __construct($circle, $user, $membership)
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->circle = $circle;
+        $this->user = $user;
+        $this->membership = $membership;
     }
 }

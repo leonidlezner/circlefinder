@@ -25,6 +25,8 @@ class EventsTest extends TestCase
 
         $circle = $this->fetchCircle($user);
 
+        $this->expectsEvents(\App\Events\UserJoinedCircle::class);
+
         $circle->joinWithDefaults($user2);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Listeners;
 use \App\Events\UserJoinedCircle;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Notification;
 
 class SendNewMemberNotification
 {
@@ -26,6 +27,10 @@ class SendNewMemberNotification
      */
     public function handle(UserJoinedCircle $event)
     {
-        dd($event);
+        $users = [
+            $event->circle->user,
+        ];
+
+        Notification::send($users, new \App\Notifications\UserJoinedCircle($event->circle));
     }
 }
