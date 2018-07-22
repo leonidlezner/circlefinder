@@ -80,7 +80,7 @@ class MessageTest extends TestCase
 
         $message = $circle->storeMessage($user, $body, $show_to_all);
 
-        $this->assertTrue(is_null($message));
+        $this->assertTrue($message->show_to_all);
 
         $circle->joinWithDefaults($user2);
         $circle->joinWithDefaults($user3);
@@ -104,12 +104,12 @@ class MessageTest extends TestCase
         $this->assertFalse($message->visibleBy($user4));
 
         $vis_messages = $circle->visibleMessages($user);
-        $this->assertEquals(1, count($vis_messages));
+        $this->assertEquals(2, count($vis_messages));
 
         $this->assertEquals($user->id, $vis_messages[0]->user->id);
 
         $vis_messages = $circle->visibleMessages($user4);
-        $this->assertEquals(0, count($vis_messages));
+        $this->assertEquals(1, count($vis_messages));
     }
 
     public function testValidationRules()
