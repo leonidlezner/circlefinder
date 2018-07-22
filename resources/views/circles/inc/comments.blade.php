@@ -15,6 +15,8 @@
                             
                             <div class="body">{{ $message->body }}</div>
 
+                            <small class="text-secondary mt-1"><span class="fa fa-calendar"></span> {{ format_date($message->created_at) }}</small>
+
                             <small class="show-to-all-info text-secondary mt-1"><span class="fa fa-eye"></span> Visible to all members of this circle</small>
                         </div>
                     </div>

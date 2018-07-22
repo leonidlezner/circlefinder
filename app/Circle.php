@@ -295,7 +295,7 @@ class Circle extends Model
 
     public function visibleMessages($user)
     {
-        $messages = $this->messages()->with('user')->get();
+        $messages = $this->messages()->with('user')->orderBy('id', 'asc')->get();
 
         // Moderator and circle owner can see all messages
         if ($user->moderator() || $this->ownedBy($user)) {
