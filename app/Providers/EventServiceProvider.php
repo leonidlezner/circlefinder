@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'Illuminate\Auth\Events\PasswordReset' => [
             'App\Listeners\PasswordResetListener',
+        ],
+        '\App\Events\UserJoinedCircle' => [
+            '\App\Listeners\SendNewMemberNotification'
         ]
     ];
 

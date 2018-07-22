@@ -5,6 +5,7 @@ namespace App;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use \App\Traits\RandomId;
+use \App\Events\UserJoinedCircle;
 
 class Circle extends Model
 {
@@ -165,6 +166,8 @@ class Circle extends Model
         if (key_exists('languages', $membership_data)) {
             $membership->languages()->attach($membership_data['languages']);
         }
+
+        event(new UserJoinedCircle($this, $user, $membership));
 
         if ($this->memberships()->count() >= $this->limit) {
             $this->complete();
