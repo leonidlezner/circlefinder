@@ -273,7 +273,7 @@ class Circle extends Model
     public function storeMessage($user, $body, $show_to_all)
     {
         if ($this->users()->count() < 1) {
-            return null;
+            $show_to_all = true;
         }
 
         $message = new \App\Message;
