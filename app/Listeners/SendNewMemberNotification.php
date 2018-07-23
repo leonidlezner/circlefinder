@@ -31,6 +31,13 @@ class SendNewMemberNotification
             $event->circle->user,
         ];
 
+        \Log::info(sprintf(
+            'Sending UserJoinedCircle notification to %s. Member "%s" joined "%s"',
+            implode(',', $users),
+            $event->user->name,
+            (string) $event->circle
+        ));
+
         Notification::send($users, new \App\Notifications\UserJoinedCircle($event->circle));
     }
 }
