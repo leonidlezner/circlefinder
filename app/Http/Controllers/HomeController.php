@@ -31,7 +31,7 @@ class HomeController extends Controller
         return view('home')->with([
             'user' => $user,
             'items' => $items,
-            'memberships' => $user->memberships,
+            'memberships' => $user->memberships()->with('circle')->get(),
         ]);
     }
 }

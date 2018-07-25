@@ -13,11 +13,14 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
-        ],
         'Illuminate\Auth\Events\PasswordReset' => [
             'App\Listeners\PasswordResetListener',
+        ],
+        \App\Events\UserJoinedCircle::class => [
+            \App\Listeners\SendNewMemberNotification::class
+        ],
+        \App\Events\NewMessageInCircle::class => [
+            \App\Listeners\SendNewMessageNotification::class
         ]
     ];
 

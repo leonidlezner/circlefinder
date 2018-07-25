@@ -5,6 +5,8 @@ namespace App;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use \App\Traits\RandomId;
+use \App\Events\UserJoinedCircle;
+use \App\Events\NewMessageInCircle;
 
 class Circle extends Model
 {
@@ -139,11 +141,7 @@ class Circle extends Model
 
     public function joined($user)
     {
-        if (count($this->users) < 1) {
-            $this->load('users');
-        }
-
-        if ($this->users->contains($user)) {
+        if ($this->users()->find($user->id)) {
             return true;
         } else {
             return false;
@@ -165,6 +163,8 @@ class Circle extends Model
         if (key_exists('languages', $membership_data)) {
             $membership->languages()->attach($membership_data['languages']);
         }
+
+        event(new UserJoinedCircle($this, $user, $membership));
 
         if ($this->memberships()->count() >= $this->limit) {
             $this->complete();
@@ -289,6 +289,8 @@ class Circle extends Model
         $message->show_to_all = $show_to_all;
         
         $message->save();
+
+        event(new NewMessageInCircle($this, $user, $message));
 
         return $message;
     }

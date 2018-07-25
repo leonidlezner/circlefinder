@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b2d4be09a87ead7c867115af6ed81a09",
+    "content-hash": "0e53f9b39aa0ccd581a7b15c471401bc",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -3763,6 +3763,61 @@
                 "webprofiler"
             ],
             "time": "2018-05-03T18:27:04+00:00"
+        },
+        {
+            "name": "beyondcode/laravel-query-detector",
+            "version": "0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beyondcode/laravel-query-detector.git",
+                "reference": "d790bcf2ac6b9739404e63214b23ae2cc55db56d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beyondcode/laravel-query-detector/zipball/d790bcf2ac6b9739404e63214b23ae2cc55db56d",
+                "reference": "d790bcf2ac6b9739404e63214b23ae2cc55db56d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.5.*|5.6.*",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "3.6.*",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BeyondCode\\QueryDetector\\QueryDetectorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BeyondCode\\QueryDetector\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Pociot",
+                    "email": "marcel@beyondco.de",
+                    "homepage": "https://beyondcode.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel N+1 Query Detector",
+            "homepage": "https://github.com/beyondcode/laravel-query-detector",
+            "keywords": [
+                "beyondcode",
+                "laravel-query-detector"
+            ],
+            "time": "2018-07-20T12:39:23+00:00"
         },
         {
             "name": "doctrine/instantiator",
