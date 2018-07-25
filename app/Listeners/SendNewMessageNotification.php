@@ -33,7 +33,7 @@ class SendNewMessageNotification
             return $value->id != $user->id;
         });
         
-        if (count($users) < 1) {
+        if ($users->isEmpty()) {
             return;
         }
 

@@ -42,16 +42,18 @@ class NewMessageEventTest extends TestCase
         
         $user = $this->fetchUser();
         $user2 = $this->fetchUser();
+        $user3 = $this->fetchUser();
         $faker = $this->fetchFaker();
         $circle = $this->fetchCircle($user);
-        $membership = $circle->joinWithDefaults($user2);
+
+        $circle->joinWithDefaults($user);
+        $circle->joinWithDefaults($user2);
+        $circle->joinWithDefaults($user3);
 
         $message = $circle->storeMessage($user, $faker->text, true);
 
         Notification::assertSentTo(
-            $circle->users->filter(function ($value, $key) use ($user) {
-                return $value->id != $user->id;
-            }),
+            [$user2, $user3],
             \App\Notifications\NewMessageInCircle::class
         );
     }
