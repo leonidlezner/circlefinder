@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\UserJoinedCircle::class => [
             \App\Listeners\SendNewMemberNotification::class
+        ],
+        \App\Events\NewMessageInCircle::class => [
+            \App\Listeners\SendNewMessageNotification::class
         ]
     ];
 

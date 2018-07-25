@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 
 /**
- * @group events
+ * @group circle_events
  */
-class EventsTest extends TestCase
+class JoinedCircleEventTest extends TestCase
 {
     use DatabaseMigrations;
     use UsersAdmins;

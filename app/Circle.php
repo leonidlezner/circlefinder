@@ -6,6 +6,7 @@ use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use \App\Traits\RandomId;
 use \App\Events\UserJoinedCircle;
+use \App\Events\NewMessageInCircle;
 
 class Circle extends Model
 {
@@ -288,6 +289,8 @@ class Circle extends Model
         $message->show_to_all = $show_to_all;
         
         $message->save();
+
+        event(new NewMessageInCircle($this, $user, $message));
 
         return $message;
     }
