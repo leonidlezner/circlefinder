@@ -10,6 +10,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 class UserJoinedCircle extends Notification implements ShouldQueue
 {
     use Queueable;
+    private $circle;
 
     /**
      * Create a new notification instance.
@@ -18,7 +19,7 @@ class UserJoinedCircle extends Notification implements ShouldQueue
      */
     public function __construct($circle)
     {
-        //
+        $this->circle = $circle;
     }
 
     /**
@@ -29,7 +30,7 @@ class UserJoinedCircle extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -40,10 +41,13 @@ class UserJoinedCircle extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $circle_name = good_title($this->circle);
+
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->subject('New member in ' . $circle_name)
+                    ->line(sprintf('Your Circle "%s" got a new member!', $circle_name))
+                    ->action('Show ' . $circle_name, route('circles.show', ['uuid' => $this->circle->uuid]))
+                    ->line('Thank you for using CircleFinder!');
     }
 
     /**
@@ -55,7 +59,8 @@ class UserJoinedCircle extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+            'circle_uuid' => $this->circle->uuid,
+            'circle_url' => route('circles.show', ['uuid' => $this->circle->uuid]),
         ];
     }
 }
