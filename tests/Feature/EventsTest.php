@@ -49,4 +49,19 @@ class EventsTest extends TestCase
             \App\Notifications\UserJoinedCircle::class
         );
     }
+
+    public function testOwnerJoinedCircleNoNotification()
+    {
+        Notification::fake();
+        
+        $user = $this->fetchUser();
+        $faker = $this->fetchFaker();
+        $circle = $this->fetchCircle($user);
+        $membership = $circle->joinWithDefaults($user);
+
+        Notification::assertNotSentTo(
+            [$user],
+            \App\Notifications\UserJoinedCircle::class
+        );
+    }
 }

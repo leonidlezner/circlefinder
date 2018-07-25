@@ -27,9 +27,15 @@ class SendNewMemberNotification
      */
     public function handle(UserJoinedCircle $event)
     {
-        $users = [
-            $event->circle->user,
-        ];
+        $users = array();
+
+        if ($event->circle->user->id != $event->user->id) {
+            $users[] = $event->circle->user;
+        }
+        
+        if (count($users) < 1) {
+            return;
+        }
 
         \Log::info(sprintf(
             'Sending UserJoinedCircle notification to %s. Member "%s" joined "%s"',
