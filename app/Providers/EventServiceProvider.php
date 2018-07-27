@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\NewMessageInCircle::class => [
             \App\Listeners\SendNewMessageNotification::class
+        ],
+        \App\Events\CircleCompleted::class => [
+            \App\Listeners\SendCircleCompletedNotification::class
         ]
     ];
 

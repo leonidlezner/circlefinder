@@ -161,7 +161,7 @@ class CirclesController extends Controller
 
     public function complete($uuid, Request $request)
     {
-        $item = \App\Circle::withUuid($uuid)->firstOrFail();
+        $item = \App\Circle::withUuid($uuid)->with(['memberships.user', 'user'])->firstOrFail();
 
         $this->authorize('complete', $item);
 

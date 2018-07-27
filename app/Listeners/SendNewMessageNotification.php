@@ -38,8 +38,8 @@ class SendNewMessageNotification
         }
 
         \Log::info(sprintf(
-            'Sending NewMessageInCircle notification to %s. Member "%s" joined "%s"',
-            $users->implode(','),
+            'Sending NewMessageInCircle notification to %s. Member %s commented %s',
+            $users->implode('name', ', '),
             $event->user->name,
             (string) $event->circle
         ));
