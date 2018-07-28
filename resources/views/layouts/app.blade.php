@@ -44,6 +44,22 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Sign up') }}</a></li>
                         @else
+
+                            @if(Auth::user()->unreadNotifications->isNotEmpty())
+                            <li class="nav-item dropdown notifications">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <span class="mr-1 fa fa-bell text-danger"></span> <span class="badge badge-danger">{{ count(Auth::user()->unreadNotifications) }}</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @foreach(list_of_notifications() as $notif_item)
+                                    <a class="dropdown-item {{ $notif_item['class'] }}" href="{{ $notif_item['link'] }}">
+                                        <span class="icon fa fa-{{ $notif_item['icon'] }}"></span> {{ $notif_item['name'] }}
+                                    </a>
+                                    @endforeach
+                                </div>
+                            </li>
+                            @endif
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span class="avatar mr-1">{!! user_avatar(Auth::user(), 20) !!}</span>

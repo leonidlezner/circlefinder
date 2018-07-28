@@ -76,6 +76,10 @@ Route::group(['prefix' => '/circles', 'as' => 'circles.', 'middleware' => 'auth'
     Route::delete('/{uuid}/remove/{user_uuid}', 'CirclesController@remove')->name('remove');
 });
 
+Route::group(['prefix' => '/notifications', 'as' => 'notifications.', 'middleware' => 'auth'], function () {
+    Route::get('/{id}', 'NotificationsController@show')->name('show');
+});
+
 # Restricted Admin URLs
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin',
     'namespace' => 'Admin', 'as' => 'admin.'], function () {

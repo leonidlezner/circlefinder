@@ -60,6 +60,7 @@ class UserJoinedCircle extends Notification implements ShouldQueue
     {
         return [
             'circle_uuid' => $this->circle->uuid,
+            'circle_name' => good_title($this->circle),
             'circle_url' => route('circles.show', ['uuid' => $this->circle->uuid]),
         ];
     }
