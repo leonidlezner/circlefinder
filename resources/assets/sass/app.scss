@@ -150,3 +150,13 @@ span.avatar {
     display: none;
   }
 }
+
+.notifications {
+  .icon {
+    width: 1.5em;
+  }
+
+  .unread .icon {
+    @extend .text-danger;
+  }
+}

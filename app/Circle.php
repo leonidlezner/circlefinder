@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use \App\Traits\RandomId;
 use \App\Events\UserJoinedCircle;
 use \App\Events\NewMessageInCircle;
+use \App\Events\CircleCompleted;
 
 class Circle extends Model
 {
@@ -217,6 +218,8 @@ class Circle extends Model
     {
         $this->completed = true;
         $this->save();
+
+        event(new CircleCompleted($this));
     }
 
     public function uncomplete()

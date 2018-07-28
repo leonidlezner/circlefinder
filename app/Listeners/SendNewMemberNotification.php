@@ -38,8 +38,8 @@ class SendNewMemberNotification
         }
 
         \Log::info(sprintf(
-            'Sending UserJoinedCircle notification to %s. Member "%s" joined "%s"',
-            implode(',', $users),
+            'Sending UserJoinedCircle notification to %s. Member %s joined %s',
+            implode(', ', $users),
             $event->user->name,
             (string) $event->circle
         ));

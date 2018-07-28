@@ -184,3 +184,48 @@ if (!function_exists('num_of_messages')) {
         }
     }
 }
+
+if (!function_exists('list_of_notifications')) {
+    function list_of_notifications()
+    {
+        $list = [];
+        $user = auth()->user();
+
+        foreach ($user->unreadNotifications()->limit(10)->get() as $notification) {
+            $name = '';
+            $icon = '';
+            $circle_name = '';
+
+            $is_unread = is_null($notification->read_at);
+            $circle_name = array_get($notification, 'data.circle_name');
+
+            switch ($notification->type) {
+                case 'App\Notifications\UserJoinedCircle':
+                    $name = sprintf(_('New user joined %s'), $circle_name);
+                    $icon = 'user';
+                    break;
+                case 'App\Notifications\CircleCompleted':
+                    $name = sprintf(_('%s is completed'), $circle_name);
+                    $icon = 'check';
+                    break;
+                case 'App\Notifications\NewMessageInCircle':
+                    $name = sprintf(_('New message in %s'), $circle_name);
+                    $icon = 'comment';
+                    break;
+                default:
+                    continue;
+            }
+
+            $class = $is_unread ? 'unread' : 'read';
+
+            $list[] = [
+                'link' => route('notifications.show', ['id' => $notification->id]),
+                'name' => str_limit($name, 40),
+                'class' => $class,
+                'icon' => $icon,
+            ];
+        }
+
+        return $list;
+    }
+}

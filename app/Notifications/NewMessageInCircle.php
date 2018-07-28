@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class NewMessageInCircle extends Notification
+class NewMessageInCircle extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -35,7 +35,7 @@ class NewMessageInCircle extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -65,6 +65,7 @@ class NewMessageInCircle extends Notification
     {
         return [
             'circle_uuid' => $this->circle->uuid,
+            'circle_name' => good_title($this->circle),
             'circle_url' => route('circles.show', ['uuid' => $this->circle->uuid]),
             'message_body' => $this->message->body,
             'user_name' => $this->user->name,

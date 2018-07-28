@@ -13308,12 +13308,15 @@ a.text-warning:focus {
   color: #d39e00 !important;
 }
 
-.text-danger {
+.text-danger,
+.notifications .unread .icon {
   color: #dc3545 !important;
 }
 
 a.text-danger:hover,
-a.text-danger:focus {
+.notifications .unread a.icon:hover,
+a.text-danger:focus,
+.notifications .unread a.icon:focus {
   color: #bd2130 !important;
 }
 
@@ -14065,5 +14068,9 @@ span.avatar img {
 
 .circle-filter input.submit {
   display: none;
+}
+
+.notifications .icon {
+  width: 1.5em;
 }
 
