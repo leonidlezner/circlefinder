@@ -14,10 +14,10 @@
                         <h3>Create a new account</h3>
                         <p><a href="{{ route('register') }}" class="btn btn-success">Sign up</a></p>
 
-                        {{--  
+                        @if(config('services.facebook.client_id'))
                         <h3>Use a social profile</h3>
                         <p><a href="{{ route('login.facebook') }}" class="btn btn-primary">Login with Facebook</a></p>
-                        --}}
+                        @endif
                     </div>
 
                     <div class="col-12 col-lg-8">

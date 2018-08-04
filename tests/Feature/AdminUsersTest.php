@@ -104,6 +104,7 @@ class AdminUsersTest extends TestCase
                 'name' => $new_name,
                 'email' => $new_mail,
                 'password' => $new_password,
+                'timezone' => $faker->timezone,
             ]);
 
         $response->assertStatus(302);
@@ -128,6 +129,7 @@ class AdminUsersTest extends TestCase
             ->post(route('admin.users.store'), [
                 'name' => $new_name,
                 'email' => $new_mail,
+                'timezone' => $faker->timezone
             ]);
 
         $response->assertStatus(302);
@@ -149,6 +151,7 @@ class AdminUsersTest extends TestCase
                 'name' => $new_name,
                 'email' => $new_mail,
                 'password' => $new_password,
+                'timezone' => $faker->timezone,
             ]);
 
         $response->assertStatus(302);
@@ -173,6 +176,7 @@ class AdminUsersTest extends TestCase
             ->put(route('admin.users.update', ['id' => $user->id]), [
                 'name' => $new_name,
                 'email' => $user->email,
+                'timezone' => $faker->timezone,
             ]);
 
         $response->assertStatus(302);
@@ -198,6 +202,7 @@ class AdminUsersTest extends TestCase
             ->put(route('admin.users.update', ['id' => $user->id]), [
                 'name' => $new_name,
                 'email' => $new_mail,
+                'timezone' => $faker->timezone,
             ]);
 
         $response->assertStatus(302);
@@ -291,6 +296,7 @@ class AdminUsersTest extends TestCase
             ->put(route('admin.users.update', ['id' => $user->id]), [
                 'name' => $user->name,
                 'email' => $user->email,
+                'timezone' => $faker->timezone,
                 'roles' => [
                     '4' => $roles[0]->id,
                     '6' => $roles[1]->id,
@@ -319,6 +325,7 @@ class AdminUsersTest extends TestCase
             ->put(route('admin.users.update', ['id' => $user->id]), [
                 'name' => $user->name,
                 'email' => $user->email,
+                'timezone' => $faker->timezone,
                 'roles' => [
                 ],
             ]);
@@ -339,6 +346,7 @@ class AdminUsersTest extends TestCase
             ->put(route('admin.users.update', ['id' => $user->id]), [
                 'name' => $user->name,
                 'email' => $user->email,
+                'timezone' => $faker->timezone,
                 'roles' => [
                     '9' => 100,
                 ],
