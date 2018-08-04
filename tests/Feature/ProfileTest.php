@@ -71,6 +71,7 @@ class ProfileTest extends TestCase
                 'name' => $new_name,
                 'email' => $new_mail,
                 'about' => $new_about,
+                'timezone' => $faker->timezone,
             ]);
 
         $response->assertStatus(302);
@@ -80,11 +81,12 @@ class ProfileTest extends TestCase
         $this->assertEquals($user->email, $new_mail);
         $this->assertEquals($user->about, $new_about);
 
-        # Check if the same email is accepter by the validator
+        # Check if the same email is accepted by the validator
         $response = $this->actingAs($user)
             ->put(route('profile.update'), [
                 'name' => $new_name,
                 'email' => $user->email,
+                'timezone' => $faker->timezone,
             ]);
 
         $response->assertStatus(302);

@@ -62,6 +62,7 @@ class User extends Authenticatable
             'twitter_profile' => 'nullable',
             'linkedin_profile' => 'nullable',
             'xing_profile' => 'nullable',
+            'timezone' => 'required|timezone'
         ];
 
         if ($except) {

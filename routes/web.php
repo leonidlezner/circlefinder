@@ -37,6 +37,12 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth',
             Route::put('/update', 'PasswordController@update')->name('update');
         });
 
+        Route::group(['prefix' => 'timezone', 'as' => 'timezone.'], function () {
+            Route::get('/', 'TimezoneController@index')->name('index');
+            Route::get('/edit', 'TimezoneController@edit')->name('edit');
+            Route::put('/update', 'TimezoneController@update')->name('update');
+        });
+
         Route::group(['prefix' => 'avatar', 'as' => 'avatar.'], function () {
             Route::get('/', 'AvatarController@index')->name('index');
             Route::get('/edit', 'AvatarController@edit')->name('edit');
@@ -48,7 +54,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth',
         Route::get('/{uuid}', 'ProfileController@show')->name('show');
     });
 
-Route::group(['prefix' => '/circles', 'as' => 'circles.', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => '/circles', 'as' => 'circles.', 'middleware' => ['auth', 'timezone']], function () {
     Route::group(['prefix' => '/{uuid}/membership', 'as' => 'membership.'], function ($circle_uuid) {
         Route::get('/edit', 'MembershipController@edit')->name('edit');
         Route::put('/update', 'MembershipController@update')->name('update');
