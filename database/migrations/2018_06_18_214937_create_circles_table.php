@@ -38,7 +38,7 @@ class CreateCirclesTable extends Migration
         });
 
         Schema::table('memberships', function ($table) {
-            $table->integer('circle_id')->after('id')->unsigned();
+            $table->integer('circle_id')->after('id')->unsigned()->default(0);
         });
     }
 

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\UsersAdmins;
 
@@ -11,7 +11,7 @@ use Tests\Traits\UsersAdmins;
  */
 class RoleUserTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     use UsersAdmins;
 
     public function testAttachRoles()

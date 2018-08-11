@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\Traits\UsersAdmins;
 use Illuminate\Support\Facades\Artisan;
 
@@ -14,7 +13,7 @@ use Illuminate\Support\Facades\Artisan;
  */
 class MembershipsTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     use UsersAdmins;
 
     public function setUp()
@@ -49,6 +48,8 @@ class MembershipsTest extends TestCase
 
     public function testUserCanUpdateOwnMembership()
     {
+        $this->seedLanguages();
+
         $user = $this->fetchUser();
         $user2 = $this->fetchUser();
         $faker = $this->fetchFaker();
@@ -62,9 +63,9 @@ class MembershipsTest extends TestCase
             'type' => 'any',
             'begin' => today(),
             'languages' => [
-                '0' => \App\Language::find(1)->code,
-                '1' => \App\Language::find(2)->code,
-                '2' => \App\Language::find(3)->code
+                '0' => \App\Language::all()->get(0)->code,
+                '1' => \App\Language::all()->get(1)->code,
+                '2' => \App\Language::all()->get(2)->code,
             ],
             'comment' => $text
         ]);

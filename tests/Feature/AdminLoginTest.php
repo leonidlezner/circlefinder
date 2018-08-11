@@ -5,11 +5,10 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AdminLoginTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
 
     public function testGuestSeesLoginForm()
