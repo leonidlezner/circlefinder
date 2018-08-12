@@ -113,13 +113,20 @@ span.avatar {
   }
 }
 
-* {
-  //outline: 1px dashed red;
-}
-
 .circle-data {
   span.fa {
     width: 1.7em;
+  }
+}
+
+.circles-overview .card-body {
+  span.fa {
+    width: 1.5em;
+  }
+
+  .card-title a {
+    color: inherit;
+    font-weight: bold;
   }
 }
 
@@ -145,11 +152,6 @@ span.avatar {
   }
 }
 
-.circle-filter {
-  input.submit {
-    display: none;
-  }
-}
 
 .notifications {
   .icon {

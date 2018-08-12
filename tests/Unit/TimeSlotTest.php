@@ -6,14 +6,13 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Traits\UsersAdmins;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 /**
  * @group timeslot
  */
 class TimeSlotTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     use UsersAdmins;
 
     private function fetchMembership($data, $user)
@@ -55,7 +54,7 @@ class TimeSlotTest extends TestCase
         $timeslot->save();
 
         $this->assertDatabaseHas('time_slots', [
-            'membership_id' => 1
+            'membership_id' => $membership->id
         ]);
 
         $this->assertEquals($timeslot->monday, $membership->timeSlot->monday);
@@ -93,13 +92,13 @@ class TimeSlotTest extends TestCase
         $timeslot->save();
 
         $this->assertDatabaseHas('time_slots', [
-            'membership_id' => 1,
+            'membership_id' => $membership->id,
             'monday' => json_encode([10 - $offset, 12 - $offset, 14 - $offset]),
             'tuesday' => json_encode([4 - $offset, 5 - $offset, 6 - $offset]),
             'wednesday' => 0
         ]);
 
-        $timeslot = \App\TimeSlot::where('membership_id', 1)->first();
+        $timeslot = \App\TimeSlot::where('membership_id', $membership->id)->first();
 
         $user->timezone = '';
         $user->save();

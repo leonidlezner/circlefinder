@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\Traits\UsersAdmins;
 use Illuminate\Support\Facades\Artisan;
 
@@ -14,7 +13,7 @@ use Illuminate\Support\Facades\Artisan;
  */
 class MessagesTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     use UsersAdmins;
 
     public function testGuestCannotAccessMembership()

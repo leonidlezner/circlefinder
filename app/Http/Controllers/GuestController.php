@@ -13,8 +13,8 @@ class GuestController extends Controller
         }
 
         $model = \App\Circle::orderBy('id', 'desc');
-        $model = $model->with(['memberships']);
-        $items = $model->paginate(10);
+        $model = $model->with(['memberships', 'languages']);
+        $items = $model->paginate(9);
 
         return view('guest.index')->with([
             'items' => $items,

@@ -2,14 +2,14 @@
 
 namespace Tests\Browser;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Traits\CleanCookies;
 use Tests\DuskTestCase;
 
 class LoginTest extends DuskTestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     use CleanCookies;
 
     public function testUserCanRegister()

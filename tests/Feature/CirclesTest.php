@@ -5,24 +5,15 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\Traits\UsersAdmins;
-use Illuminate\Support\Facades\Artisan;
 
 /**
  * @group circles
  */
 class CirclesTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     use UsersAdmins;
-
-    public function setUp()
-    {
-        parent::setUp();
-        Artisan::call('migrate');
-        Artisan::call('db:seed', ['--class' => 'LanguagesTableSeeder', '--env' => 'testing']);
-    }
 
     public function testGuestCannotAccessCircle()
     {
@@ -83,6 +74,8 @@ class CirclesTest extends TestCase
 
     public function testUserCanCreateCircle()
     {
+        $this->seedLanguages();
+
         $user = $this->fetchUser();
         $faker = $this->fetchFaker();
 
@@ -94,9 +87,9 @@ class CirclesTest extends TestCase
             'title' =>  $faker->catchPhrase,
             'begin' => today(),
             'languages' => [
-                '0' => \App\Language::find(1)->code,
-                '1' => \App\Language::find(2)->code,
-                '2' => \App\Language::find(3)->code
+                '0' => \App\Language::all()->get(0)->code,
+                '1' => \App\Language::all()->get(1)->code,
+                '2' => \App\Language::all()->get(2)->code,
             ],
             'limit' => 7,
         ]);
@@ -114,6 +107,8 @@ class CirclesTest extends TestCase
 
     public function testModeratorDoesNotAutojoinCircle()
     {
+        $this->seedLanguages();
+
         $user = $this->fetchModerator();
         $faker = $this->fetchFaker();
 
@@ -125,7 +120,7 @@ class CirclesTest extends TestCase
             'title' =>  $faker->catchPhrase,
             'begin' => today(),
             'languages' => [
-                '0' => \App\Language::find(1)->code
+                '0' => \App\Language::all()->get(0)->code,
             ],
             'limit' => 5
         ]);
@@ -173,6 +168,8 @@ class CirclesTest extends TestCase
 
     public function testOwnerCanUpdateCircle()
     {
+        $this->seedLanguages();
+
         $user = $this->fetchUser();
         $faker = $this->fetchFaker();
         $circle = $this->fetchCircle($user);
@@ -183,9 +180,9 @@ class CirclesTest extends TestCase
             'description' => $faker->text,
             'begin' => today(),
             'languages' => [
-                '0' => \App\Language::find(1)->code,
-                '1' => \App\Language::find(2)->code,
-                '2' => \App\Language::find(3)->code
+                '0' => \App\Language::all()->get(0)->code,
+                '1' => \App\Language::all()->get(1)->code,
+                '2' => \App\Language::all()->get(2)->code,
             ],
             'limit' => 5,
         ]);
@@ -201,7 +198,7 @@ class CirclesTest extends TestCase
             'description' => $faker->text,
             'begin' => today(),
             'languages' => [
-                '0' => \App\Language::find(1)->code
+                '0' => \App\Language::all()->get(0)->code,
             ],
             'limit' => 9,
         ]);

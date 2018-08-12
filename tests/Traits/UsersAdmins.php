@@ -3,6 +3,7 @@
 namespace Tests\Traits;
 
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\Artisan;
 
 trait UsersAdmins
 {
@@ -92,5 +93,10 @@ trait UsersAdmins
         $message->save();
 
         return $message;
+    }
+
+    private function seedLanguages()
+    {
+        Artisan::call('db:seed', ['--class' => 'LanguagesTableSeeder', '--env' => 'testing']);
     }
 }

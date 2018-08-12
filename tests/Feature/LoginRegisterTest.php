@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\Traits\UsersAdmins;
 use Socialite;
@@ -18,7 +17,7 @@ use Illuminate\Auth\Events\PasswordReset;
  */
 class LoginRegisterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     use UsersAdmins;
 
     public function testGuestSeesLoginForm()

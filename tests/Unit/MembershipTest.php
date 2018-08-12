@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\UsersAdmins;
 use Carbon\Carbon;
@@ -12,7 +12,7 @@ use Carbon\Carbon;
  */
 class MembershipTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     use UsersAdmins;
 
     private function fetchMembership($data, $user)
