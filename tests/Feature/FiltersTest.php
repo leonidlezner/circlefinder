@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\Traits\UsersAdmins;
 use Illuminate\Support\Facades\Artisan;
 
@@ -14,7 +13,7 @@ use Illuminate\Support\Facades\Artisan;
  */
 class FiltersTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     use UsersAdmins;
 
     public function setUp()
@@ -162,11 +161,13 @@ class FiltersTest extends TestCase
 
     public function testUserCanFilterByLanguage()
     {
+        $this->seedLanguages();
+
         $user = $this->fetchUser();
         $faker = $this->fetchFaker();
 
-        $lang1 = \App\Language::find(1);
-        $lang2 = \App\Language::find(2);
+        $lang1 = \App\Language::all()->get(0);
+        $lang2 = \App\Language::all()->get(1);
         
         $circle1 = $this->fetchCircle($user, [
             'type' => 'f2f',

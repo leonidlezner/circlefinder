@@ -10,6 +10,6 @@ return [
         'max' => 9
     ],
     'listing' => [
-        'items_per_page' => 10,
+        'items_per_page' => env('CIRCLES_PER_PAGE', 15),
     ],
 ];

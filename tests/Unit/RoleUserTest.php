@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\UsersAdmins;
 
@@ -11,7 +11,7 @@ use Tests\Traits\UsersAdmins;
  */
 class RoleUserTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     use UsersAdmins;
 
     public function testAttachRoles()
@@ -60,7 +60,7 @@ class RoleUserTest extends TestCase
 
         $this->assertEquals(0, count($roles[0]->users));
 
-        $user->forceDelete();
+        $roles[0]->forceDelete();
         $this->assertDatabaseMissing('role_user', [
             'role_id' => $roles[0]->id,
         ]);

@@ -26,6 +26,11 @@ class CircleFilter extends ModelFilter
         return $this->related('languages', 'code', '=', $language);
     }
 
+    public function location($location)
+    {
+        return $this->whereLike('location', $location);
+    }
+
     public function status($status)
     {
         switch ($status) {

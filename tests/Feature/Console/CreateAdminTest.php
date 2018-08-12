@@ -5,12 +5,11 @@ namespace Tests\Feature\Console;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Artisan;
 
 class CreateAdminTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     
     /**
      * @group console

@@ -14048,6 +14048,15 @@ span.avatar img {
   width: 1.7em;
 }
 
+.circles-overview .card-body span.fa {
+  width: 1.5em;
+}
+
+.circles-overview .card-body .card-title a {
+  color: inherit;
+  font-weight: bold;
+}
+
 .message .media-body {
   padding: 0.7em 1em;
   background: #f7f7f7;
@@ -14064,10 +14073,6 @@ span.avatar img {
 
 .show-to-all .show-to-all-info {
   display: block;
-}
-
-.circle-filter input.submit {
-  display: none;
 }
 
 .notifications .icon {

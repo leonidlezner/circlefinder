@@ -11,6 +11,7 @@ $factory->define(\App\Circle::class, function (Faker $faker) {
         'full' => false,
         'limit' => 5,
         'description' => $faker->text,
-        'begin' => today()
+        'begin' => today(),
+        'location' => $faker->city,
     ];
 });
