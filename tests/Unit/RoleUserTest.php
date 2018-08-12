@@ -60,7 +60,7 @@ class RoleUserTest extends TestCase
 
         $this->assertEquals(0, count($roles[0]->users));
 
-        $user->forceDelete();
+        $roles[0]->forceDelete();
         $this->assertDatabaseMissing('role_user', [
             'role_id' => $roles[0]->id,
         ]);

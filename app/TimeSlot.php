@@ -9,11 +9,6 @@ class TimeSlot extends Model
     private $current_user = null;
     private $time_offset = 0;
 
-    public function membership()
-    {
-        return $this->belongsTo(\App\Membership::class);
-    }
-
     protected $fillable = [
         'time',
         'monday',
@@ -34,19 +29,6 @@ class TimeSlot extends Model
         'saturday' => 'array',
         'sunday' => 'array',
     ];
-
-    public static function validationRules($except = null)
-    {
-        $rules = [
-            #'time' => 'required|in:' . implode(',', config('circle.defaults.types')),
-        ];
-
-        if ($except) {
-            $rules = array_except($rules, $except);
-        }
-
-        return $rules;
-    }
 
     public function atTime($time)
     {
