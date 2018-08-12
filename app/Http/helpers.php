@@ -98,7 +98,7 @@ if (!function_exists('circle_state')) {
             return _('Full');
         }
 
-        return _('Open (' . count($circle->memberships) . '/' . $circle->limit . ')');
+        return _('Open');
     }
 }
 
