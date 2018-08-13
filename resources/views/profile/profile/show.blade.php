@@ -47,10 +47,12 @@
                         @if($item->timezone)
                         <p class="mt-3">Timezone: {{ $item->timezone }}</p>
                         @else
-                        <div class="mt-3 alert alert-danger">
-                            <p><i class="fa fa-exclamation-triangle"></i> The timezone is not set!</p>
-                            <div><a class="btn btn-primary" href="{{ route('profile.timezone.edit') }}">Set the timezone</a></div>
-                        </div>
+                            @if(auth()->user()->id == $item->id)
+                            <div class="mt-3 alert alert-danger">
+                                <p><i class="fa fa-exclamation-triangle"></i> The timezone is not set!</p>
+                                <div><a class="btn btn-primary" href="{{ route('profile.timezone.edit') }}">Set the timezone</a></div>
+                            </div>
+                            @endif
                         @endif
                     </div>
                 </div>
