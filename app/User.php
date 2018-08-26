@@ -2,11 +2,11 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use \App\Traits\RandomId;
-use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -46,13 +46,34 @@ class User extends Authenticatable
     ];
 
     private $profiles = [
-        'twitter' => 'https://twitter.com/',
-        'facebook' => 'https://www.facebook.com/',
-        'linkedin' => [
-            'regex' => 'linkedin.com\/in\/(.*)',
-            'fullurl' => 'https://www.linkedin.com/in/%s'
+        'twitter' => [
+            'regex' => [
+                '^(?:http(?:s)?:\/\/)?(?:[\w]+\.)?twitter\.com\/([A-z0-9_]+)\/?$',
+                '^([A-z0-9_]+)?$',
+            ],
+            'fullurl' => 'https://twitter.com/%s',
         ],
-        'xing' => 'https://www.xing.com/profile/',
+        'facebook' => [
+            'regex' => [
+                '^(?:http(?:s)?:\/\/)?(?:[\w]+\.)?facebook\.com\/([A-z0-9_\-\.]+)\/?$',
+                '^([A-z0-9_\-\.]+)?$',
+            ],
+            'fullurl' => 'https://www.facebook.com/%s',
+        ],
+        'linkedin' => [
+            'regex' => [
+                '^(?:http(?:s)?:\/\/)?(?:[\w]+\.)?linkedin\.com\/in\/([A-z0-9_\-]+)\/?$',
+                '^([A-z0-9_\-]+)?$',
+            ],
+            'fullurl' => 'https://www.linkedin.com/in/%s',
+        ],
+        'xing' => [
+            'regex' => [
+                '^(?:http(?:s)?:\/\/)?(?:[\w]+\.)?xing\.com\/profile\/([A-z0-9_\-\.]+)\/?$',
+                '^([A-z0-9_\-\.]+)?$',
+            ],
+            'fullurl' => 'https://www.xing.com/profile/%s',
+        ],
     ];
 
     public static function validationRules($except = null)
@@ -65,7 +86,7 @@ class User extends Authenticatable
             'twitter_profile' => 'nullable',
             'linkedin_profile' => 'nullable',
             'xing_profile' => 'nullable',
-            'timezone' => 'required|timezone'
+            'timezone' => 'required|timezone',
         ];
 
         if ($except) {
@@ -89,7 +110,7 @@ class User extends Authenticatable
             }
 
             $user->deleteCirclesOrChangeOwnership();
-            
+
             $user->messages()->each(function ($model) {
                 $model->delete();
             });
@@ -138,7 +159,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(\App\Role::class);
     }
-    
+
     public function messages()
     {
         return $this->hasMany(\App\Message::class);
@@ -187,10 +208,10 @@ class User extends Authenticatable
     {
         if ($this->timezone) {
             $time = Carbon::now();
-    
+
             $dtUser = Carbon::create($time->year, $time->month, $time->day, $time->hour, 0, 0, $this->timezone);
             $dtUtc = Carbon::create($time->year, $time->month, $time->day, $time->hour, 0, 0, 'UTC');
-    
+
             return $dtUser->diffInHours($dtUtc, false);
         } else {
             return 0;
@@ -208,7 +229,7 @@ class User extends Authenticatable
 
         foreach ($this->profiles as $profile => $link_template) {
             $field_name = sprintf('%s_profile', $profile);
-            
+
             if (strlen(trim($this->$field_name)) > 0) {
                 $profiles[$profile] = $this->sanitizeProfileField($profile, $this->$field_name);
             }
@@ -221,10 +242,15 @@ class User extends Authenticatable
     {
         $template = $this->profiles[$profile];
 
-        if (strpos($field, $template) === false) {
-            return $template.$field;
-        } else {
-            return $field;
+        $regex_list = $template['regex'];
+        $fullurl = $template['fullurl'];
+
+        foreach ($regex_list as $regex) {
+            if (preg_match('/' . $regex . '/', $field, $matches)) {
+                return sprintf($fullurl, $matches[1]);
+            }
         }
+
+        return $field;
     }
 }
