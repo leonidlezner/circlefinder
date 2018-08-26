@@ -108,6 +108,16 @@ class UserTest extends TestCase
         );
 
         $this->assertEquals(
+            'https://www.linkedin.com/in/your-username',
+            $user->sanitizeProfileField('linkedin', 'www.linkedin.com/in/your-username')
+        );
+
+        $this->assertEquals(
+            'https://www.linkedin.com/in/your-username',
+            $user->sanitizeProfileField('linkedin', 'linkedin.com/in/your-username')
+        );
+
+        $this->assertEquals(
             'https://www.xing.com/profile/your-username',
             $user->sanitizeProfileField('xing', 'your-username')
         );
@@ -115,6 +125,11 @@ class UserTest extends TestCase
         $this->assertEquals(
             'https://www.xing.com/profile/your-username',
             $user->sanitizeProfileField('xing', 'https://www.xing.com/profile/your-username')
+        );
+
+        $this->assertEquals(
+            'https://www.xing.com/profile/your-username',
+            $user->sanitizeProfileField('xing', 'www.xing.com/profile/your-username')
         );
     }
 }

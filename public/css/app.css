@@ -14079,3 +14079,14 @@ span.avatar img {
   width: 1.5em;
 }
 
+.body {
+  /* https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/ */
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.media-body {
+  min-width: 0%;
+}
+
