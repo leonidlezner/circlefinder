@@ -135,7 +135,7 @@ if (!function_exists('user_picture')) {
                 $new_file_path = sprintf('images/%d_%d_%s', $s, $s, $placeholder);
 
                 if (Storage::disk('public')->exists($new_file_path) == false) {
-                    $image = Image::make(resource_path('assets/images/' . $placeholder));
+                    $image = Image::make(resource_path('images/' . $placeholder));
                     $image->resize($s, $s);
                     Storage::disk('public')->put($new_file_path, (string) $image->encode('jpg'));
                 }
