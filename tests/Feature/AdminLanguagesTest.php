@@ -72,8 +72,6 @@ class AdminLanguagesTest extends TestCase
         $response = $this->actingAs($admin, 'admin')
             ->get(route('admin.languages.show', ['id' => 5]));
 
-        echo $response->getContent();
-
         $response->assertStatus(404);
 
         $response = $this->actingAs($admin, 'admin')
