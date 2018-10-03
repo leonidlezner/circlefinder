@@ -9,7 +9,7 @@ class TimezoneController extends Controller
 {
     public function index()
     {
-        return redirect(route('timezone.password.edit'));
+        return redirect(route('profile.timezone.edit'));
     }
 
     public function edit(Request $request)

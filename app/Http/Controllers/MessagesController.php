@@ -18,15 +18,9 @@ class MessagesController extends Controller
 
         $message = $circle->storeMessage($user, $request->body, $request->input('show_to_all', false));
 
-        if ($message) {
-            return redirect()->route('circles.show', $circle->uuid)->with([
-                'success' => sprintf('Comment was posted!'),
-            ]);
-        } else {
-            return redirect()->route('circles.show', $circle->uuid)->withErrors(
-                sprintf('Comment could not be posted!')
-            );
-        }
+        return redirect()->route('circles.show', $circle->uuid)->with([
+            'success' => sprintf('Comment was posted!'),
+        ]);
     }
 
     public function update($circle_uuid, $uuid, Request $request)

@@ -170,21 +170,6 @@ if (!function_exists('user_picture')) {
     }
 }
 
-if (!function_exists('num_of_messages')) {
-    function num_of_messages($circle, $user)
-    {
-        $messages = $circle->visibleMessages($user);
-
-        if (count($messages) == 0) {
-            return _('No comments');
-        } elseif (count($messages) == 1) {
-            return _('One comment');
-        } else {
-            return sprintf(_('%d comments'), count($messages));
-        }
-    }
-}
-
 if (!function_exists('list_of_notifications')) {
     function list_of_notifications()
     {
