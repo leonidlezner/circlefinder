@@ -20,7 +20,7 @@ class HomeTest extends TestCase
     public function testGuestCanAccessHome()
     {
         $response = $this->get(route('index'));
-        
+
         $response->assertStatus(200);
     }
 
@@ -33,5 +33,14 @@ class HomeTest extends TestCase
         $response->assertStatus(302);
 
         $response->assertRedirect(route('circles.index'));
+    }
+
+    public function testUserCanAccessHome()
+    {
+        $user = $this->fetchUser();
+
+        $response = $this->actingAs($user)->get(route('home'));
+
+        $response->assertStatus(200);
     }
 }
