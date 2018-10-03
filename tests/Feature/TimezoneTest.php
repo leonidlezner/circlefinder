@@ -43,6 +43,9 @@ class TimezoneTest extends TestCase
         $user->timezone = null;
         $user->save();
         
+        $response = $this->actingAs($user)->get(route('profile.timezone.index'));
+        $response->assertStatus(302);
+
         $response = $this->actingAs($user)->get(route('profile.timezone.edit'));
         $response->assertStatus(200);
         
