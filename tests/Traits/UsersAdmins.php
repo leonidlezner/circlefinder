@@ -49,10 +49,14 @@ trait UsersAdmins
         return $user;
     }
 
-    private function fetchLanguage($id = null)
+    private function fetchLanguage($id = null, $count = 1)
     {
-        if ($id == null) {
-            return factory(\App\Language::class)->create();
+        if ($id === null) {
+            if ($count > 1) {
+                return factory(\App\Language::class, $count)->create();
+            } else {
+                return factory(\App\Language::class)->create();
+            }
         } else {
             return \App\Language::find($id);
         }
