@@ -61,15 +61,4 @@ class PrivateMessage extends Model
 
         return $rules;
     }
-
-    /**
-    public static function create($userid, Request $request)
-    {
-        $privateMessage = new self;
-        $privateMessage->fill($request->all());
-        $privateMessage->user_id = $userid;
-        $privateMessage->recipient_id = $request['recipient'];
-        $privateMessage->save();
-    }
-     */
 }
