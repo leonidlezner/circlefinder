@@ -20,7 +20,6 @@ class CreatePrivateMessagesTable extends Migration
             $table->integer('recipient_id')->unsigned();
             $table->timestamp('read_at')->nullable();
             $table->text('body');
-            $table->integer('conversation')->unsigned()->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

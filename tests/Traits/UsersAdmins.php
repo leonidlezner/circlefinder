@@ -103,6 +103,7 @@ trait UsersAdmins
     private function fetchPrivateMessage($recipient)
     {
         $faker = $this->fetchFaker();
+
         $data =  [
             'body' => $faker->text(),
             'recipient_id' => $recipient->id

@@ -35,7 +35,8 @@ class PrivateMessage extends Model
 
     protected $fillable = [
         'body',
-        'recipient_id'
+        'recipient_id',
+        'conversation',
     ];
 
     public function recipient()

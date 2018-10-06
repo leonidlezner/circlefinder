@@ -88,15 +88,16 @@ class PrivateMessagesController extends Controller
      */
     public function create($uuid, $replyUuid = null)
     {
-        $this->authorize('create', App\PrivateMessage::class);
-
         $replyToMessage = null;
+        
         $recipient = App\User::where('uuid', $uuid)->firstOrFail();
+
         if (null != $replyUuid) {
             $replyToMessage = App\PrivateMessage::withUuid($replyUuid)->firstOrFail();
         }
 
-        //$this->authorize('create', \App\PrivateMessage::class);
+        $this->authorize('create', [\App\PrivateMessage::class, $replyToMessage]);
+
         return view('privatemessages.create')->with([
             'recipient' => $recipient,
             'replyToMessage' => $replyToMessage
@@ -104,7 +105,7 @@ class PrivateMessagesController extends Controller
     }
 
     /**
-     * Send private message
+     * Send new private message
      *m
      * @param Request $request
      *
@@ -114,12 +115,51 @@ class PrivateMessagesController extends Controller
     public function send($uuid, Request $request)
     {
         $this->authorize('send', App\PrivateMessage::class);
+        
         $user = App\User::withUuid($uuid)->firstOrFail();
-        $request->request->add(['recipient_id' => $user->id]);
+        
+        $request->request->add([
+            'recipient_id' => $user->id,
+            'conversation' => null,
+        ]);
+        
         $this->validate($request, App\PrivateMessage::validationRules());
+
         App\PrivateMessage::create($request->all());
 
         return redirect()->route('private_messages.inbox')->with('success', 'Message sent successfully.');
+    }
+
+/**
+     * Send private message reply
+     *m
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function sendReply($uuid, $replyUuid, Request $request)
+    {
+        $replyToMessage = App\PrivateMessage::withUuid($replyUuid)->firstOrFail();
+        
+        $this->authorize('send', [App\PrivateMessage::class, $replyToMessage]);
+
+        if ($replyToMessage->conversation !== null) {
+            $conversation = $replyToMessage->conversation;
+        } else {
+            $conversation = $replyToMessage->id;
+        }
+
+        $request->request->add([
+            'recipient_id' => $replyToMessage->user_id,
+            'conversation' => $conversation,
+        ]);
+        
+        $this->validate($request, App\PrivateMessage::validationRules());
+
+        App\PrivateMessage::create($request->all());
+
+        return redirect()->route('private_messages.inbox')->with('success', 'Reply sent successfully.');
     }
 
     /**

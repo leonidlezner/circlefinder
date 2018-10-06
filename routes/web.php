@@ -86,13 +86,14 @@ Route::group(['prefix' => '/notifications', 'as' => 'notifications.', 'middlewar
     Route::get('/{id}', 'NotificationsController@show')->name('show');
 });
 
-Route::group(['prefix' => '/private_messages', 'as' => 'private_messages.', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => '/conversations', 'as' => 'private_messages.', 'middleware' => 'auth'], function () {
     Route::get('/', 'PrivateMessagesController@inbox')->name('inbox');
     Route::get('/sent', 'PrivateMessagesController@sent')->name('sent');
     Route::get('/{uuid}/create', 'PrivateMessagesController@create')->name('create');
     Route::post('/{uuid}/send', 'PrivateMessagesController@send')->name('send');
     Route::get('/{uuid}/read', 'PrivateMessagesController@read')->name('read');
     Route::get('/{uuid}/reply/{replyUuid}', 'PrivateMessagesController@create')->name('reply');
+    Route::post('/{uuid}/reply/{replyUuid}', 'PrivateMessagesController@sendReply')->name('send_reply');
 });
 
 # Restricted Admin URLs

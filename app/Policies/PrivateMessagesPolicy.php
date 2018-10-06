@@ -38,8 +38,12 @@ class PrivateMessagesPolicy
      * @param  \App\User $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, $replyToMessage = null)
     {
+        if ($replyToMessage) {
+            return $replyToMessage->recipient_id == $user->id;
+        }
+
         return true;
     }
 
@@ -49,8 +53,12 @@ class PrivateMessagesPolicy
      * @param  \App\User $user
      * @return mixed
      */
-    public function send(User $user)
+    public function send(User $user, $replyToMessage = null)
     {
+        if ($replyToMessage) {
+            return $replyToMessage->recipient_id == $user->id;
+        }
+                
         return true;
     }
 
