@@ -19,6 +19,12 @@
                     @endif
                 </div>
             </div>
+        @else
+            <div class="card-body">
+                <div class="btn-group">
+                    <a href="{{ route('private_messages.create', ['uuid' => $item->uuid]) }}" class="btn btn-secondary">Send message</a>
+                </div>
+            </div>
         @endif
 
         <div class="card-body row">

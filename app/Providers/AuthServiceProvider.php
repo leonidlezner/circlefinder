@@ -17,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Circle' => 'App\Policies\CirclePolicy',
         'App\Membership' => 'App\Policies\MembershipPolicy',
         'App\Message' => 'App\Policies\MessagesPolicy',
+        'App\PrivateMessage' => 'App\Policies\PrivateMessagesPolicy',
     ];
 
     /**

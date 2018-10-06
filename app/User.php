@@ -186,6 +186,11 @@ class User extends Authenticatable
         return $this->hasMany(\App\Circle::class);
     }
 
+    public function privateMessages()
+    {
+        return $this->hasMany(\App\PrivateMessage::class);
+    }
+
     public function newAvatarFileName()
     {
         return $this->newUuid() . '.jpg';

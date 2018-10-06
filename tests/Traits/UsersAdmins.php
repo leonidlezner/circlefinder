@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use App\PrivateMessage;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Artisan;
 
@@ -93,10 +94,21 @@ trait UsersAdmins
         $message->user_id = $user ? $user->id : null;
         $message->circle_id = $circle->id;
         $message->show_to_all = false;
-        
+
         $message->save();
 
         return $message;
+    }
+
+    private function fetchPrivateMessage($recipient)
+    {
+        $faker = $this->fetchFaker();
+        $data =  [
+            'body' => $faker->text(),
+            'recipient_id' => $recipient->id
+        ];
+
+        return PrivateMessage::create($data);
     }
 
     private function seedLanguages()

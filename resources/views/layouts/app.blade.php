@@ -60,6 +60,9 @@
                             </li>
                             @endif
 
+                            <li class="nav-item">
+
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span class="avatar mr-1">{!! user_avatar(Auth::user(), 20) !!}</span>
@@ -67,6 +70,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('profile.index') }}">{{ __('Profile') }}</a>
+                                    <a class="dropdown-item" href="{{ route('private_messages.inbox') }}">{{ __('Messages') }}</a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
