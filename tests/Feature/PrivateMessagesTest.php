@@ -97,7 +97,7 @@ class PrivateMessagesTest extends TestCase
         $response->assertStatus(302);
         $response->assertSessionHas('success');
 
-        $privateMessage = $user->privateMessages()->first();
+        $privateMessage = $user->sentMessages()->first();
         
         $this->assertEquals($user->id, $privateMessage->user->id);
 
@@ -174,7 +174,7 @@ class PrivateMessagesTest extends TestCase
         $response->assertStatus(302);
         $response->assertSessionHas('success');
 
-        $message2 = $recipient->privateMessages()->first();
+        $message2 = $recipient->sentMessages()->first();
 
         $this->assertEquals($user->id, $message2->recipient_id);
         $this->assertEquals($message1->id, $message2->conversation);
@@ -189,7 +189,7 @@ class PrivateMessagesTest extends TestCase
         $response->assertStatus(302);
         $response->assertSessionHas('success');
 
-        $message3 = $user->privateMessages()->get()->last();
+        $message3 = $user->sentMessages()->get()->last();
 
         $this->assertEquals($recipient->id, $message3->recipient_id);
         $this->assertEquals($message1->id, $message3->conversation);

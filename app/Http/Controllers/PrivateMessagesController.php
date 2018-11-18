@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PrivateMessagesController extends Controller
 {
@@ -31,17 +32,34 @@ class PrivateMessagesController extends Controller
 
         $user = auth()->user();
 
-        $items = App\PrivateMessage::where('recipient_id', Auth::id())
-            ->orderBy('created_at', 'desc')
-            ->with('user')
+        $user_id = $user->id;
+        
+        $sent_items = App\PrivateMessage::where(function ($query) use ($user_id) {
+            $query->where('sender_id', $user_id)->where('conversation', null);
+        })
+            #->join('users as sender', 'sender.id', '=', 'private_messages.sender_id')
+            #->join('users as recipient', 'recipient.id', '=', 'private_messages.recipient_id')
+            ->with('recipient', 'sender')
+            ->orderBy('private_messages.created_at', 'desc')
             ->get();
 
-        $unreadAmount = $items->reduce(function ($carry, $item) {
-            if (null === $item->read_at) {
+        $received_items = App\PrivateMessage::where(function ($query) use ($user) {
+            #$query->where('recipient_id', $user->id)->where('conversation', null);
+        })
+            ->with(['recipient', 'sender'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        $items = $sent_items->concat($received_items);
+
+            /*
+        $unreadAmount = $items->reduce(function ($carry, $item) use ($user) {
+            if (null === $item->read_at && $user->id == $item->recipient_id) {
                 $carry++;
             }
             return $carry;
-        }, 0);
+        }, 0);*/
+        $unreadAmount = 0;
 
         return view('privatemessages.index')->with([
             'user' => $user,
@@ -63,10 +81,16 @@ class PrivateMessagesController extends Controller
 
         $user = auth()->user();
 
+        $items = $user->sentMessages()
+            #->orderBy('created_at', 'desc')
+            ->with(['recipient'])
+            ->get();
+
+        /*
         $items = App\PrivateMessage::where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
-            ->with('user')
-            ->get();
+            ->with(['user'])
+            ->get();*/
 
         $unreadItems = App\PrivateMessage::where('recipient_id', Auth::id())
             ->where('read_at', null)
@@ -74,7 +98,7 @@ class PrivateMessagesController extends Controller
 
         return view('privatemessages.index')->with([
             'user' => $user,
-            'unreadAmount' => $unreadItems->count(),
+            'unreadAmount' => 0, //* $unreadItems->count(),
             'items' => $items,
             'inbox' => false
         ]);

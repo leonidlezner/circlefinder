@@ -41,12 +41,12 @@ class PrivateMessage extends Model
 
     public function recipient()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'recipient_id');
     }
 
-    public function user()
+    public function sender()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'sender_id');
     }
 
     public static function validationRules($except = null)

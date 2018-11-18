@@ -26,7 +26,7 @@
                         @foreach($items as $privateMessage)
                             <a href="{{ route('private_messages.read', ['uuid' => $privateMessage->uuid]) }}" id="{{ $privateMessage->uuid }}" class="list-group-item list-group-item-action flex-column align-items-start @if(null === $privateMessage->read_at and 1 == $inbox) list-group-item-secondary @endif">
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="mb-1">{{ $privateMessage->user->name }}</h5>
+                                    <h5 class="mb-1">{{ $privateMessage->sender->name }} &gt; {{ $privateMessage->recipient->name }}</h5>
                                     <small>{{ $privateMessage->created_at }}</small>
                                 </div>
                                 <p class="mb-1">{{ str_limit($privateMessage->body, $limit = 150, $end = '...') }}</p>
