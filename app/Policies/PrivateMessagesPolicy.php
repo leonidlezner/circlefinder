@@ -71,6 +71,6 @@ class PrivateMessagesPolicy
      */
     public function read(User $user, PrivateMessage $privateMessage)
     {
-        return $privateMessage->user_id == $user->id || $privateMessage->recipient_id == $user->id;
+        return $privateMessage->sender->id == $user->id || $privateMessage->recipient->id == $user->id;
     }
 }

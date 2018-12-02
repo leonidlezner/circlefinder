@@ -14,19 +14,15 @@
         <h5 class="card-header">Your private messages</h5>
         <div class="card-body">
             <div class="card-body row">
-                <div class="col-12 col-lg-2">
-                    <div class="btn-group-vertical">
-                        <a href="{{ route('private_messages.inbox') }}" class="btn btn-secondary @if(1 == $inbox) active @endif">Inbox @if(0 < $unreadAmount)<span class="badge badge-light">{{ $unreadAmount }}</span>@endif</a>
-                        <a href="{{ route('private_messages.sent') }}" class="btn btn-secondary @if(0 == $inbox) active @endif">Sent</a>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-10">
+                
+                <div class="col-12">
                     @if(count($items) > 0)
+                        <h2>Conversations</h2>
                         <div class="list-group">
                         @foreach($items as $privateMessage)
-                            <a href="{{ route('private_messages.read', ['uuid' => $privateMessage->uuid]) }}" id="{{ $privateMessage->uuid }}" class="list-group-item list-group-item-action flex-column align-items-start @if(null === $privateMessage->read_at and 1 == $inbox) list-group-item-secondary @endif">
+                            <a href="{{ route('private_messages.read', ['uuid' => $privateMessage->uuid]) }}" id="{{ $privateMessage->uuid }}" class="list-group-item list-group-item-action flex-column align-items-start @if(null === $privateMessage->read_at) list-group-item-secondary @endif">
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="mb-1">{{ $privateMessage->sender->name }} &gt; {{ $privateMessage->recipient->name }}</h5>
+                                    <h5 class="mb-1">From <strong>{{ $privateMessage->sender->name }}</strong> to <strong>{{ $privateMessage->recipient->name }}</strong></h5>
                                     <small>{{ $privateMessage->created_at }}</small>
                                 </div>
                                 <p class="mb-1">{{ str_limit($privateMessage->body, $limit = 150, $end = '...') }}</p>
