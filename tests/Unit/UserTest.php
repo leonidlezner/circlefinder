@@ -131,5 +131,15 @@ class UserTest extends TestCase
             'https://www.xing.com/profile/your-username',
             $user->sanitizeProfileField('xing', 'www.xing.com/profile/your-username')
         );
+
+        $this->assertEquals(
+            'https://www.xing.com/profile/SomeUserBlahBlah',
+            $user->sanitizeProfileField('xing', 'https://www.xing.com/profile/SomeUserBlahBlah/cv?sc_o=mxb_p')
+        );
+
+        $this->assertEquals(
+            'https://www.facebook.com/SomeUserBlahBlah',
+            $user->sanitizeProfileField('facebook', 'https://m.facebook.com/SomeUserBlahBlah?ref=bookmarks')
+        );
     }
 }

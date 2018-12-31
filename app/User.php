@@ -48,28 +48,28 @@ class User extends Authenticatable
     private $profiles = [
         'twitter' => [
             'regex' => [
-                '^(?:http(?:s)?:\/\/)?(?:[\w]+\.)?twitter\.com\/([A-z0-9_]+)\/?$',
+                '^(?:http(?:s)?:\/\/)?(?:[\w]+\.)?twitter\.com\/([A-z0-9_]+)\/?(.*)$',
                 '^([A-z0-9_]+)?$',
             ],
             'fullurl' => 'https://twitter.com/%s',
         ],
         'facebook' => [
             'regex' => [
-                '^(?:http(?:s)?:\/\/)?(?:[\w]+\.)?facebook\.com\/([A-z0-9_\-\.]+)\/?$',
+                '^(?:http(?:s)?:\/\/)?(?:[\w]+\.)?facebook\.com\/([A-z0-9_\-\.]+)\/?(.*)$',
                 '^([A-z0-9_\-\.]+)?$',
             ],
             'fullurl' => 'https://www.facebook.com/%s',
         ],
         'linkedin' => [
             'regex' => [
-                '^(?:http(?:s)?:\/\/)?(?:[\w]+\.)?linkedin\.com\/in\/([A-z0-9_\-]+)\/?$',
+                '^(?:http(?:s)?:\/\/)?(?:[\w]+\.)?linkedin\.com\/in\/([A-z0-9_\-]+)\/?(.*)$',
                 '^([A-z0-9_\-]+)?$',
             ],
             'fullurl' => 'https://www.linkedin.com/in/%s',
         ],
         'xing' => [
             'regex' => [
-                '^(?:http(?:s)?:\/\/)?(?:[\w]+\.)?xing\.com\/profile\/([A-z0-9_\-\.]+)\/?$',
+                '^(?:http(?:s)?:\/\/)?(?:[\w]+\.)?xing\.com\/profile\/([A-z0-9_\-\.]+)\/?(.*)$',
                 '^([A-z0-9_\-\.]+)?$',
             ],
             'fullurl' => 'https://www.xing.com/profile/%s',
